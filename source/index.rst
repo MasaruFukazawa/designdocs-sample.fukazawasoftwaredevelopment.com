@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to 設計書サンプル's documentation!
+設計書サンプル
 ==========================================
 
 .. toctree::
@@ -13,6 +13,7 @@ Welcome to 設計書サンプル's documentation!
    project_charter
    mermaid-sample
    openapi-sample
+   batch-sample
 
 
 
