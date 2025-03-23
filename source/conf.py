@@ -14,7 +14,8 @@ author = 'MasaruFukazawa'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinxcontrib.mermaid'
+    'sphinxcontrib.mermaid',
+    'sphinxcontrib.openapi',
 ]
 
 templates_path = ['_templates']
@@ -27,4 +28,9 @@ language = 'ja'
 
 html_theme = 'classic'
 #html_theme = 'alabaster'
-html_static_path = ['_static']
+
+html_static_path = ['../_static']
+
+html_css_files = [
+    'custom.css',
+]

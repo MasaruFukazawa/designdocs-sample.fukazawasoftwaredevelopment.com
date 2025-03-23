@@ -7,8 +7,12 @@ Welcome to 設計書サンプル's documentation!
 ==========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
+
+   project_charter
+   mermaid-sample
+   openapi-sample
 
 
 

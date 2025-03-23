@@ -1,0 +1,88 @@
+'/energy-companies/':
+  get:
+    summary: エネルギー会社の一覧を取得する
+    description: |
+      エネルギー会社の一覧を取得することができます。
+
+      クエリで郵便番号の上1桁を指定すると、エリアごとのエネルギー会社の一覧を取得することができます。
+
+      - 郵便番号の上1桁が「1」の場合は、東京電力エリアのエネルギー会社のみを取得することができます。
+      - 郵便番号の上1桁が「5」の場合は、関西電力エリアのエネルギー会社のみを取得することができます。
+      - 上記以外の場合は対象エリア外とみなし、404エラー「サービスエリア対象外です。」を返却します。
+
+      なお、フィルタリングした結果には、必ず「その他エリア」が含まれます。
+    parameters:
+      - name: area_code
+        in: query
+        description: 郵便番号の上1桁を指定
+        required: true
+        schema:
+          type: integer
+          format: uint8
+    responses:
+      "200":
+        description: エネルギー会社のJson形式データを配列で返却します。
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/Companies'
+            example:
+              - id: 1
+                name: "東京電力"
+                area_code: 1
+                area_name: "東京電力エリア"
+              - id: 9999
+                name: "その他"
+                area_code: 9999
+                area_name: "その他エリア"
+      "404":
+        description: エネルギー会社が見つからない場合は、エラーメッセージを返却します。
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/Error'
+            example:
+              code: 404
+              message: "エネルギー会社が見つかりません。"
+
+'/energy-companies/plans/':
+  get:
+    summary: エネルギー会社が提供するプランを取得する。
+    description: |
+      エネルギー会社が提供するプラン一覧を取得することができます。
+    parameters:
+      - name: company_id
+        in: query
+        description: 電力会社IDを指定
+        required: true
+        schema:
+          type: string
+          format: string
+    responses:
+      "200":
+        description: プランのJson形式データを配列で返却します。
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/Plans'
+            example:
+              - id: 2
+                name: "従量電灯B"
+                capacities:
+                  - name: "10A"
+                  - name: "15A"
+                  - name: "20A"
+                  - name: "30A"
+                  - name: "40A"
+                  - name: "50A"
+                  - name: "60A"
+
+      "404":
+        description: プランが見つからない場合は、エラーメッセージを返却します。
+        content:
+          application/json:
+            schema:
+              $ref: './schemas.yaml#/Error'
+            example:
+              code: 404
+              message: "提供できるプランが見つかりません。"

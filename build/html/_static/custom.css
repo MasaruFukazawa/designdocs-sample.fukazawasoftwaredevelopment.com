@@ -1,1 +1,14 @@
-/* This file intentionally left blank. */
+/* custom.css */
+body {
+    max-width: 100%; /* 全体の最大幅 */
+    font-size: 14px;  /* お好みで 12px〜14px あたりが見やすい */
+}
+
+div.body {
+    max-width: 1200px;  /* ← ここでmain領域の最大幅を指定 */
+    margin: 0 auto;     /* 中央寄せ */
+}
+
+#mermaid {
+    font-size: 12px;  /* 好みに応じて調整してね */
+}

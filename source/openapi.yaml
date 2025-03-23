@@ -1,0 +1,15 @@
+openapi: 3.0.3
+info:
+  title: フロントエンドチャレンジ03 API ドキュメント
+  description: テスト
+  version: 0.0.1
+
+servers:
+  $ref: './openapi/servers.yaml'
+
+paths:
+  $ref: './openapi/paths.yaml'
+
+components:
+  schemas:
+    $ref: './openapi/schemas.yaml'
