@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-設計書サンプル
+設計書サンプル ver:2025.03.25 
 ==========================================
 
 .. toctree::
