@@ -1,6 +1,6 @@
 # Sphinx build artifacts
-build/
-*.doctree
+#build/
+#*.doctree
 
 # Python cache
 __pycache__/
