@@ -38,6 +38,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: build/html
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -45,6 +46,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Download artifact
+        uses: actions/download-pages-artifact@v3
+
       - name: Sync to S3
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -54,7 +58,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: ./build/html
+          SOURCE_DIR: ./  # artifact rootに展開される
 
       - name: Invalidate CloudFront cache
         run: |
@@ -64,7 +68,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: us-east-1
+          AWS_REGION: us-east-1  # 固定でOK
 
       - name: Deploy to GitHub Pages
         id: deployment
