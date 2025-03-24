@@ -37,6 +37,7 @@ jobs:
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-artifact@v4
         with:
+          name: github-pages
           path: build/html
 
   deploy:
@@ -49,7 +50,6 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: github-pages
           path: build/html
 
       - name: Sync to S3
