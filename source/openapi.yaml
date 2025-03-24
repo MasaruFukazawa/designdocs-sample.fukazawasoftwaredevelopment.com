@@ -1,15 +1,149 @@
-openapi: 3.0.3
+openapi: "3.0.3"
 info:
-  title: フロントエンドチャレンジ03 API ドキュメント
-  description: テスト
-  version: 0.0.1
-
+  title: Batcomputer API
+  version: "1.0.0"
 servers:
-  $ref: './openapi/servers.yaml'
-
+  - url: https://api.batcomputer.com
 paths:
-  $ref: './openapi/paths.yaml'
-
+  /persons:
+    get:
+      summary: List Persons
+      description: |
+        Retrieves a list of all persons on file in the bat computer.
+      responses:
+        '200':
+          description: An array of Persons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+  /evidence:
+    get:
+      summary: List Evidence
+      description: |
+        Retrieves a list of evidence ever found by world's greatest detective and his family.
+      parameters:
+        - name: marker
+          in: query
+          description: |
+            The id of the last seen evidence. It's used for pagination purpose by returning 'limit' number of evidence after this one.
+          required: false
+          schema:
+            type: integer
+            format: int64
+            minimum: -1
+            default: -1
+        - name: limit
+          in: query
+          description: |
+            The maximum number of evidence to be returned by the query.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 1000
+            default: 20
+      responses:
+        '200':
+          description: An array of evidence.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Evidence'
+    post:
+      summary: Create an Evidence
+      description: |
+        Creates a new evidence record in database.
+      requestBody:
+        description: Evidence object to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Evidence'
+      responses:
+        '201':
+          description: An evidence.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evidence'
+  /evidence/{id}:
+    get:
+      summary: Show Requested Evidence
+      description: |
+        Queries and returns an evidence with a passed ID.
+      parameters:
+        - name: id
+          in: path
+          description: A unique evidence identifier to query.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: If-None-Match
+          in: header
+          description: |
+            Executes a request only if passed ETag doesn't equal to current resource one (i.e. resource has been changed).
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An evidence.
+          headers:
+            ETag:
+              description: |
+                Entity tag is part of HTTP provided for web cache validation problem, but also used for optimistic concurrency control.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evidence'
+        '404':
+          description: Evidence not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
-    $ref: './openapi/schemas.yaml'
+    Evidence:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: A unique evidence identifier.
+        case:
+          type: string
+          description: A case when the evidence is found.
+        data:
+          type: string
+          format: binary
+          description: An evidence itself.
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: A unique identifier of error.
+        message:
+          type: string
+          description: A human readable error message.
+    Person:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique ID for a person
+        name:
+          type: string
+          description: Name of a person
