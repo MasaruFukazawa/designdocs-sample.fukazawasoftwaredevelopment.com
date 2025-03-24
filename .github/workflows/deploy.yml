@@ -49,6 +49,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
+          name: github-pages
           path: build/html
 
       - name: Sync to S3
