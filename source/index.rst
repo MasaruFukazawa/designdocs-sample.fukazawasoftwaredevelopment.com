@@ -14,6 +14,7 @@
    mermaid-sample
    openapi-sample
    batch-sample
+   restructuredtext-sample
 
 
 
