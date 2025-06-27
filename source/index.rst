@@ -11,6 +11,8 @@
    :caption: Contents:
 
    project_charter
+   project_plan
+
    mermaid-sample
    openapi-sample
    batch-sample

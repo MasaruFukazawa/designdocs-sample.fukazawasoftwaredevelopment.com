@@ -148,3 +148,37 @@ ER図
         CheckStock -- NG --> UI
 
 
+PIPELINE
+-----------
+
+.. mermaid::
+
+    flowchart TD
+        Start([Start]) --> S1
+
+        %% --- Source Stage ---
+        subgraph S1 [Stage: Source]
+            A1[GitHub Checkout]
+        end
+
+        S1 --> S2
+
+        %% --- Lint & Tests Stage ---
+        subgraph S2 [Stage: Lint & Tests]
+            B1[Lint]
+            B2[Tests]
+            B3[Inspector Scan]
+            B4[Security Scan]
+            B1 --> B4
+            B2 --> B4
+            B3 --> B4
+        end
+
+        S2 --> S3
+
+        %% --- Build Stage ---
+        subgraph S3 [Stage: Build]
+            C1[Docker Build & Push to ECR]
+        end
+
+        S3 --> End([Done])
