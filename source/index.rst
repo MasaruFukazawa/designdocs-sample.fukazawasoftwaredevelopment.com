@@ -12,6 +12,7 @@
 
    project_charter
    project_plan
+   user_story
 
    mermaid-sample
    openapi-sample
