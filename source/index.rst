@@ -13,6 +13,7 @@
    project_charter
    project_plan
    user_story
+   domain_model
 
    mermaid-sample
    openapi-sample
