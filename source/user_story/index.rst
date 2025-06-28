@@ -4,4 +4,4 @@
 .. toctree::
    :maxdepth: 1
 
-   user_story/template
+   template

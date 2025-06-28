@@ -7,7 +7,7 @@ ER図
 .. toctree::
    :maxdepth: 1
 
-   database/er
+   er
 
 テーブル一覧
 --------------------------------------------
@@ -15,4 +15,18 @@ ER図
 .. toctree::
    :maxdepth: 1
 
-   database/table_list
+   table_list
+
+テーブル設計詳細
+--------------------------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+テンプレート
+--------------------------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   template

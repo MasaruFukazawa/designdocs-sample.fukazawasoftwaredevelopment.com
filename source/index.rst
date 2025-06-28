@@ -11,10 +11,10 @@
 
    project_charter
    project_plan
-   user_story
-   domain_model
-   usecase
-   database
+   user_story/index
+   domain_model/index
+   usecase/index
+   database/index
 
    mermaid-sample
    openapi-sample
