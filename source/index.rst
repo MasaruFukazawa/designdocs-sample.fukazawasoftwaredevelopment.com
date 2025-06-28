@@ -15,6 +15,7 @@
    domain_model/index
    usecase/index
    database/index
+   mail/index
 
    mermaid-sample
    openapi-sample
