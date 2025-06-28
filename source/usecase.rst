@@ -4,6 +4,6 @@
 .. toctree::
    :maxdepth: 1
 
-  usecase/diagram
-  usecase/template
+   usecase/diagram
+   usecase/template
   
