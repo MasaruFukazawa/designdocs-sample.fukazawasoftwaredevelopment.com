@@ -14,6 +14,7 @@
    user_story
    domain_model
    usecase
+   database
 
    mermaid-sample
    openapi-sample
