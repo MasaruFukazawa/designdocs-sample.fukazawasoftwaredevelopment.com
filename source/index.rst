@@ -8,12 +8,12 @@
 
 .. toctree::
    :maxdepth: 1
-   :caption: Contents:
 
    project_charter
    project_plan
    user_story
    domain_model
+   usecase
 
    mermaid-sample
    openapi-sample
