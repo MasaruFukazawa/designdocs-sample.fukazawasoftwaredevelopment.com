@@ -3,6 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. このテンプレートの使用方法:
+.. 1. 「ユースケース タイトル」を具体的な機能名に変更
+.. 2. 関連するユーザーストーリーファイル名を指定
+.. 3. 各セクションの「..」で始まるコメント行を参考に具体的な内容を記載
+.. 4. 不要なセクションは削除可能（入力項目、エラーメッセージなど）
+.. 5. コメント行（「..」で始まる行）は最終版では削除
+
 [ 機能名 ]
 ==========================================
 
@@ -191,43 +198,92 @@
    * - [ メール名2 ]
      - :doc:`../mail/[メールファイル名2]`
 
+
 シーケンス図
 --------------------------------------------
 
+**概念レベル（ロバスト図ベース）**
+
+.. mermaid::
+   :caption: メイン処理フロー
+
+   sequenceDiagram
+      participant Client as 主アクター名
+      participant WebApp as Webアプリケーション
+      participant Service as 処理制御名
+      participant DB as エンティティ名
+      participant External as 外部アクター名
+
+      Client->>WebApp: 操作実行
+      WebApp->>Service: 処理要求
+      Service->>DB: データ検証
+      DB-->>Service: 検証結果
+      Service->>DB: データ作成更新
+      DB-->>Service: 作成更新完了
+      Service->>External: 外部連携
+      External-->>Service: 連携完了
+      Service-->>WebApp: 処理完了
+      WebApp-->>Client: 完了画面表示
+      External->>Client: 外部通知
+
+**条件分岐テスト**
+
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    sequenceDiagram
-       participant Actor as [ 主アクター名 ]
-       participant Web as [ フロントエンド名 ]
-       participant AppService as [ アプリケーションサービス名 ]
-       participant DomainService as [ ドメインサービス名 ]
-       participant ValidationService as [ バリデーションサービス名 ]
-       participant Repository as [ リポジトリ名 ]
-       participant External as [ 外部システム名 ]
-       
-       Actor->>Web: [ 画面アクセス ]
-       Web-->>Actor: [ 画面表示 ]
-       Actor->>Web: [ 情報入力・送信 ]
-       Web->>AppService: [ メソッド名(引数) ]
-       
-       AppService->>Repository: [ 保存メソッド(エンティティ) ]
-       Repository-->>AppService: 保存完了
-       
-       AppService->>ValidationService: [ 検証メソッド(データ) ]
-       ValidationService-->>AppService: 検証結果
-       
-       AppService->>DomainService: [ ビジネスメソッド(データ) ]
-       DomainService->>DomainService: [ ビジネスロジック実行 ]
-       DomainService-->>AppService: [ 処理結果エンティティ ]
-       
-       AppService->>Repository: [ 保存メソッド(結果エンティティ) ]
-       Repository-->>AppService: 保存完了
-       
-       AppService->>External: [ 外部連携メソッド(データ) ]
-       External-->>AppService: 処理完了
-       External->>Actor: [ 外部からの通知 ]
-       
-       AppService->>AppService: [ ドメインイベント発行 ]
-       AppService-->>Web: [ 完了レスポンス ]
-       Web-->>Actor: [ 完了画面表示 ]
+      participant Client as クライアント
+      participant API as API
+      participant Service as サービス
+      participant DB as データベース
+
+      Client->>API: リクエスト送信
+      API->>Service: 処理要求
+      Service->>DB: データ検索
+      DB-->>Service: 検索結果
+      
+      alt データが存在する場合
+          Service-->>API: 成功レスポンス
+          API-->>Client: データ返却
+      else データが存在しない場合
+          Service-->>API: エラーレスポンス
+          API-->>Client: エラー通知
+      end
+
+**実装レベル（技術アーキテクチャ）**
+
+.. mermaid::
+
+    sequenceDiagram
+        participant Client as 主アクター名
+        participant Web as フロントエンド名
+        participant AppService as アプリケーションサービス名
+        participant DomainService as ドメインサービス名
+        participant ValidationService as バリデーションサービス名
+        participant Repository as リポジトリ名
+        participant External as 外部システム名
+        
+        Client->>Web: 画面アクセス
+        Web-->>Client: 画面表示
+        Client->>Web: 情報入力・送信
+        Web->>AppService: メソッド名(引数)
+        
+        AppService->>Repository: 保存メソッド(エンティティ)
+        Repository-->>AppService: 保存完了
+        
+        AppService->>ValidationService: 検証メソッド(データ)
+        ValidationService-->>AppService: 検証結果
+        
+        AppService->>DomainService: ビジネスメソッド(データ)
+        DomainService->>DomainService: ビジネスロジック実行
+        DomainService-->>AppService: 処理結果エンティティ
+        
+        AppService->>Repository: 保存メソッド(結果エンティティ)
+        Repository-->>AppService: 保存完了
+        
+        AppService->>External: 外部連携メソッド(データ)
+        External-->>AppService: 処理完了
+        External->>Client: 外部からの通知
+        
+        AppService->>AppService: ドメインイベント発行
+        AppService-->>Web: 完了レスポンス
+        Web-->>Client: 完了画面表示
