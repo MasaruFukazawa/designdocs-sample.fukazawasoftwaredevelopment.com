@@ -27,7 +27,9 @@
 2. **ユーザーストーリー作成**: issue基準でAgile形式（As a/I want/So that + Given-When-Then）のユーザーストーリーを作成
 3. **ドメインモデル作成**: アクターと用語を定義し、クラス図を作成
 4. **ユースケース作成**: ユースケース図・記述を作成（← このステップ）
-5. **データベース設計**: 必要に応じてER図とテーブル設計を作成
+5. **DDD設計作成**: エンティティ・値オブジェクト・集約・ドメインサービス・リポジトリの詳細設計
+6. **ユースケースシーケンス図更新**: DDD設計要素をシーケンス図に反映（← 重要な追加ステップ）
+7. **データベース設計**: 必要に応じてER図とテーブル設計を作成
 
 ## テンプレート形式
 
@@ -69,6 +71,52 @@
 1. `docs/design/source/usecase/` ディレクトリに新しい `.rst` ファイルを作成
 2. テンプレート形式に従って作成
 3. `docs/design/source/usecase.rst` にリンクを追加
+
+### 3. DDD設計後のシーケンス図更新
+
+DDD設計完了後、既存のユースケースシーケンス図を詳細化します：
+
+1. **対象DDD設計文書の確認**: `docs/design/source/ddd/[バウンデッドコンテキスト名].rst` の内容を理解
+2. **既存シーケンス図の確認**: 更新対象のユースケースファイルのシーケンス図を確認
+3. **DDD要素の追加**: 以下の要素をシーケンス図に反映
+   - **エンティティ**: ビジネス概念を表現するオブジェクト
+   - **値オブジェクト**: 不変の値を表現するオブジェクト
+   - **集約**: 関連するエンティティと値オブジェクトをまとめたもの
+   - **ドメインサービス**: エンティティや値オブジェクトに属さないビジネスロジック
+   - **リポジトリ**: データの永続化を抽象化するインターフェース
+4. **ビジネスルール適用**: ドメインサービスやエンティティのビジネスルールを適切なタイミングで実行
+5. **基本コース・代替コースとの整合性確認**: 元のユースケース記述との一貫性を保つ
+
+#### DDD設計要素を含むシーケンス図のテンプレート例
+
+```mermaid
+%%{init: {"theme": "default"}}%%
+sequenceDiagram
+    participant Actor as アクター
+    participant Controller as コントローラー
+    participant DomainService as ドメインサービス
+    participant Entity as エンティティ
+    participant ValueObject as 値オブジェクト
+    participant Repository as リポジトリ
+    participant Database as データベース
+    
+    Actor->>Controller: リクエスト
+    Controller->>DomainService: ビジネスロジック実行
+    DomainService->>Repository: エンティティ取得
+    Repository->>Database: データ取得
+    Database-->>Repository: データ返却
+    Repository-->>DomainService: エンティティ返却
+    DomainService->>ValueObject: 値オブジェクト作成
+    ValueObject-->>DomainService: 値オブジェクト返却
+    DomainService->>Entity: ビジネスルール適用
+    Entity-->>DomainService: 処理結果
+    DomainService->>Repository: エンティティ保存
+    Repository->>Database: データ保存
+    Database-->>Repository: 保存完了
+    Repository-->>DomainService: 保存完了
+    DomainService-->>Controller: 処理結果
+    Controller-->>Actor: レスポンス
+```
 
 ## アクターアイコン
 

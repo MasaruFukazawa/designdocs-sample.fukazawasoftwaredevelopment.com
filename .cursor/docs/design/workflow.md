@@ -114,20 +114,26 @@ graph TD
     A[GitHubのissue確認] --> B[ユーザーストーリー作成]
     B --> C[ドメインモデル作成]
     C --> D[ユースケース作成]
-    D --> E{メール定義書が必要？}
-    E -->|Yes| F[メール定義書作成]
-    E -->|No| G{データベース設計が必要？}
-    F --> G{データベース設計が必要？}
-    G -->|Yes| H[データベース設計]
-    G -->|No| I[Git運用]
-    H --> I[Git運用]
+    D --> E{DDD設計が必要？}
+    E -->|Yes| F[DDD設計作成]
+    E -->|No| G{メール定義書が必要？}
+    F --> F2[ユースケースシーケンス図更新]
+    F2 --> G{メール定義書が必要？}
+    G -->|Yes| H[メール定義書作成]
+    G -->|No| I{データベース設計が必要？}
+    H --> I{データベース設計が必要？}
+    I -->|Yes| J[データベース設計]
+    I -->|No| K[Git運用]
+    J --> K[Git運用]
     
     A1[issue番号・内容確認] --> A
     B1[Agile形式記述] --> B
     C1[用語・アクター定義] --> C
     D1[システム相互作用設計] --> D
-    F1[メール詳細定義] --> F
-    H1[ER図・テーブル設計] --> H
+    F1[ドメイン層詳細設計] --> F
+    F21[DDD要素をシーケンス図に反映] --> F2
+    H1[メール詳細定義] --> H
+    J1[ER図・テーブル設計] --> J
 ```
 
 ## ワークフロー一覧表
@@ -138,8 +144,10 @@ graph TD
 | 2. ユーザーストーリー作成 | issue + `docs/design/source/user_story/template.rst` | `docs/design/source/user_story/[機能名].rst` |
 | 3. ドメインモデル作成 | ユーザーストーリー + 既存`docs/design/source/domain_model.rst` | 更新された`docs/design/source/domain_model.rst` |
 | 4. ユースケース作成 | ユーザーストーリー + ドメインモデル + `docs/design/source/usecase/template.rst` | `docs/design/source/usecase/[機能名].rst` |
-| 5. メール定義書作成 | ユーザーストーリー + ドメインモデル + ユースケース + `docs/design/source/mail/template.rst` | `docs/design/source/mail/[メール名].rst` |
-| 6. データベース設計 | ユーザーストーリー + ドメインモデル + ユースケース + メール定義書 + 既存`docs/design/source/database/er.rst` | 更新された`docs/design/source/database/er.rst` |
+| 5. DDD設計作成 | ユーザーストーリー + ドメインモデル + ユースケース + `docs/design/source/ddd/template.rst` | `docs/design/source/ddd/[バウンデッドコンテキスト名].rst` |
+| 5.5. ユースケースシーケンス図更新 | DDD設計 + 既存ユースケース | 更新された`docs/design/source/usecase/[機能名].rst`（詳細シーケンス図） |
+| 6. メール定義書作成 | ユーザーストーリー + ドメインモデル + ユースケース + DDD設計 + `docs/design/source/mail/template.rst` | `docs/design/source/mail/[メール名].rst` |
+| 7. データベース設計 | ユーザーストーリー + ドメインモデル + ユースケース + DDD設計 + メール定義書 + 既存`docs/design/source/database/er.rst` | 更新された`docs/design/source/database/er.rst` |
 
 ## ファイル構造とルール
 
@@ -157,6 +165,10 @@ docs/design/source/
 │   ├── diagram.rst         # ユースケース図
 │   ├── template.rst        # ユースケーステンプレート
 │   └── [機能名].rst        # 個別ユースケース
+├── ddd/
+│   ├── index.rst           # DDD設計一覧
+│   ├── template.rst        # DDD設計テンプレート
+│   └── [バウンデッドコンテキスト名].rst  # 個別DDD設計
 ├── mail/
 │   ├── index.rst           # メール定義書一覧
 │   ├── template.rst        # メール定義テンプレート
@@ -173,6 +185,7 @@ docs/design/source/
 ├── workflow.md             # 統一ワークフロー（このファイル）
 ├── user_story.md          # ユーザーストーリー作成ルール
 ├── usecase.md             # ユースケース作成ルール
+├── ddd.md                 # DDD設計作成ルール
 ├── mail.md                # メール定義書作成ルール
 ├── database.md            # データベース設計ルール
 └── git.md                 # Git運用ルール
@@ -190,6 +203,7 @@ docs/design/source/
 #### フォルダ別index.rstファイル
 - `docs/design/source/user_story/index.rst`: ユーザーストーリーファイル一覧
 - `docs/design/source/usecase/index.rst`: ユースケースファイル一覧
+- `docs/design/source/ddd/index.rst`: DDD設計ファイル一覧
 - `docs/design/source/mail/index.rst`: メール定義書ファイル一覧
 - `docs/design/source/database/index.rst`: データベース設計ファイル一覧
 
@@ -233,6 +247,24 @@ docs/design/source/
 - [ ] システムとアクターの相互作用が明確
 - [ ] Mermaid図が正しく表示される
 
+#### DDD設計
+- [ ] ドメインモデルとの整合性がある
+- [ ] ユースケースのビジネスロジックが適切に反映されている
+- [ ] エンティティの一意性が明確に定義されている
+- [ ] 値オブジェクトの不変性が保たれている
+- [ ] 集約の境界が適切に設計されている
+- [ ] ビジネスルールが明確に記述されている
+- [ ] `docs/design/source/ddd/index.rst`にリンクが追加されている
+
+#### ユースケースシーケンス図更新（DDD設計後）
+- [ ] DDD設計のエンティティがシーケンス図に反映されている
+- [ ] 値オブジェクトの作成・使用が適切に表現されている
+- [ ] 集約の操作が正しくモデル化されている
+- [ ] ドメインサービスの呼び出しが含まれている
+- [ ] リポジトリを通じたデータアクセスが表現されている
+- [ ] ビジネスルールの実行タイミングが明確
+- [ ] 元の基本コース・代替コースとの整合性が保たれている
+
 #### メール定義書
 - [ ] ユースケースで特定されたメール送信要件と一致している
 - [ ] テンプレート構造に従って記述されている
@@ -257,6 +289,8 @@ docs/design/source/
 - **ユーザーストーリー作成後**: 「ユーザーストーリー: [機能名] - [概要]」
 - **ドメインモデル更新後**: 「ドメインモデル: [用語追加/クラス図更新] - [概要]」
 - **ユースケース作成後**: 「ユースケース: [機能名] - [概要]」
+- **DDD設計作成後**: 「DDD設計: [バウンデッドコンテキスト名] - [概要]」
+- **ユースケースシーケンス図更新後**: 「ユースケース更新: [機能名] - DDD設計を反映」
 - **メール定義書作成後**: 「メール定義書: [メール名] - [概要説明]」
 - **データベース設計後**: 「データベース設計: [テーブル追加/ER図更新] - [概要]」
 
@@ -281,11 +315,12 @@ docs/design/source/
 
 ## 関連文書
 
-- **ユーザーストーリー作成**: `.cursor/user_story.md`
-- **ユースケース作成**: `.cursor/usecase.md`
-- **メール定義書作成**: `.cursor/mail.md`
-- **データベース設計**: `.cursor/database.md`
-- **Git運用**: `.cursor/git.md`
+- **ユーザーストーリー作成**: `.cursor/docs/design/user_story.md`
+- **ユースケース作成**: `.cursor/docs/design/usecase.md`
+- **DDD設計作成**: `.cursor/docs/design/ddd.md`
+- **メール定義書作成**: `.cursor/docs/design/mail.md`
+- **データベース設計**: `.cursor/docs/design/database.md`
+- **Git運用**: `.cursor/docs/design/git.md`
 
 ## トラブルシューティング
 
@@ -300,6 +335,14 @@ docs/design/source/
 - すべての設計文書で同じ用語を使用する
 - 新しい用語は必ず `source/domain_model.rst` に定義
 - 定期的に用語の一貫性をチェック
+
+#### DDD設計とシーケンス図の不整合
+- DDD設計文書とユースケースシーケンス図の要素が一致しない
+- **解決方法**: 
+  - DDD設計のエンティティ、値オブジェクト、集約がシーケンス図に含まれているか確認
+  - ビジネスルールの実行タイミングが適切か検証
+  - 基本コース・代替コースとの整合性をチェック
+- **予防策**: DDD設計後に必ずシーケンス図更新ステップを実行
 
 #### ワークフローの迷い
 - このワークフロー文書に立ち戻る

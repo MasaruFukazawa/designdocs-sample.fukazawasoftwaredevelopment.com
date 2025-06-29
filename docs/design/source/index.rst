@@ -14,6 +14,7 @@
    user_story/index
    domain_model/index
    usecase/index
+   ddd/index
    screen/index
    database/index
    mail/index
