@@ -12,5 +12,4 @@
 
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    graph TD

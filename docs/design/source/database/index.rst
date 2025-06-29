@@ -4,7 +4,7 @@
 **最終更新**: [ 更新日を記載 ]
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    er

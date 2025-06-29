@@ -72,7 +72,6 @@
 
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    sequenceDiagram
        participant Scheduler as スケジューラー
        participant Batch as バッチ処理

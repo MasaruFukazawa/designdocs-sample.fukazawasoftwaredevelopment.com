@@ -38,11 +38,10 @@
 
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    graph TD
-       TOP[[ トップページ ]]
-       LOGIN[[ ログイン画面 ]]
-       MENU[[ メニュー画面 ]]
+       TOP[トップページ]
+       LOGIN[ログイン画面]
+       MENU[メニュー画面]
        
        TOP --> LOGIN
        LOGIN --> MENU
@@ -55,31 +54,29 @@
 
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    graph TD
-       START[[ 開始画面名 ]] --> INPUT[[ 入力画面名 ]]
+       START[開始画面名] --> INPUT[入力画面名]
        INPUT --> VALIDATE{入力チェック}
        VALIDATE -->|エラーあり| INPUT
-       VALIDATE -->|重複エラー| ERROR[[ エラー表示・案内画面 ]]
-       VALIDATE -->|OK| COMPLETE[[ 完了画面名 ]]
-       COMPLETE --> NEXT[[ 後続画面名 ]]
-       ERROR --> ALT1[[ 代替画面1 ]]
-       ERROR --> ALT2[[ 代替画面2 ]]
+       VALIDATE -->|重複エラー| ERROR[エラー表示・案内画面]
+       VALIDATE -->|OK| COMPLETE[完了画面名]
+       COMPLETE --> NEXT[後続画面名]
+       ERROR --> ALT1[代替画面1]
+       ERROR --> ALT2[代替画面2]
 
 **複雑なフローパターン**:
 
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    graph TD
-       A[[ 開始画面 ]]
-       B[[ 入力画面1 ]]
-       C[[ 確認画面 ]]
-       D[[ 入力画面2 ]]
+       A[開始画面]
+       B[入力画面1]
+       C[確認画面]
+       D[入力画面2]
        E{条件分岐}
-       F[[ 完了画面A ]]
-       G[[ 完了画面B ]]
-       H[[ エラー画面 ]]
+       F[完了画面A]
+       G[完了画面B]
+       H[エラー画面]
        
        A --> B
        B --> C

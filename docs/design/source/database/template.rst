@@ -174,7 +174,6 @@ ER図
 
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    erDiagram
        [ テーブル名1 ] {
            [ データ型 ] [ カラム名1 ] PK "[ 説明 ]"

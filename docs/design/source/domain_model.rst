@@ -328,7 +328,6 @@
 
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    classDiagram
        class User["ユーザー"] {
            +user_id: int
@@ -388,7 +387,6 @@
 
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    graph LR
        ユーザー --> |商品検索| 商品検索処理
        ユーザー --> |カート追加| カート管理処理

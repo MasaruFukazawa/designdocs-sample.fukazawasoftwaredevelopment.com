@@ -14,52 +14,55 @@
 
 .. mermaid::
 
-   %%{init: {"theme": "default"}}%%
    erDiagram
-       %% 実装済みテーブルをここに記載
-       %% example_table {
-       %%     UUID id PK "主キー"
-       %%     VARCHAR name "名前"
-       %%     TIMESTAMP created_at "作成日時"
-       %%     TIMESTAMP updated_at "更新日時"
-       %% }
+       %% サンプルECサイトのデータベース設計
+       members {
+           UUID id PK "会員ID"
+           VARCHAR email UK "メールアドレス"
+           VARCHAR password "パスワード（ハッシュ化）"
+           VARCHAR name "会員名"
+           VARCHAR phone "電話番号"
+           VARCHAR status "会員ステータス"
+           TIMESTAMP created_at "作成日時"
+           TIMESTAMP updated_at "更新日時"
+       }
        
-       %% 将来拡張用のテーブル（コメントアウト状態）
-       %% products {
-       %%     UUID id PK "商品ID"
-       %%     VARCHAR name "商品名"
-       %%     TEXT description "商品説明"  
-       %%     INTEGER price "価格"
-       %%     INTEGER stock_quantity "在庫数"
-       %%     VARCHAR status "商品ステータス"
-       %%     TIMESTAMP created_at "作成日時"
-       %%     TIMESTAMP updated_at "更新日時"
-       %% }
-       %%
-       %% orders {
-       %%     UUID id PK "注文ID"
-       %%     UUID member_id FK "会員ID"
-       %%     INTEGER total_amount "総額"
-       %%     VARCHAR status "注文ステータス"
-       %%     TIMESTAMP ordered_at "注文日時"
-       %%     TIMESTAMP created_at "作成日時"
-       %%     TIMESTAMP updated_at "更新日時"
-       %% }
-       %%
-       %% order_items {
-       %%     UUID id PK "注文明細ID"
-       %%     UUID order_id FK "注文ID"
-       %%     UUID product_id FK "商品ID"
-       %%     INTEGER quantity "数量"
-       %%     INTEGER unit_price "単価"
-       %%     INTEGER subtotal "小計"
-       %%     TIMESTAMP created_at "作成日時"
-       %% }
-       %%
-       %% 将来のリレーション
-       %% members ||--o{ orders : "1人の会員が複数の注文を持つ"
-       %% orders ||--o{ order_items : "1つの注文が複数の注文明細を持つ"
-       %% products ||--o{ order_items : "1つの商品が複数の注文明細で使用される"
+       products {
+           UUID id PK "商品ID"
+           VARCHAR name "商品名"
+           TEXT description "商品説明"  
+           INTEGER price "価格"
+           INTEGER stock_quantity "在庫数"
+           VARCHAR status "商品ステータス"
+           TIMESTAMP created_at "作成日時"
+           TIMESTAMP updated_at "更新日時"
+       }
+
+       orders {
+           UUID id PK "注文ID"
+           UUID member_id FK "会員ID"
+           INTEGER total_amount "総額"
+           VARCHAR status "注文ステータス"
+           TIMESTAMP ordered_at "注文日時"
+           TIMESTAMP created_at "作成日時"
+           TIMESTAMP updated_at "更新日時"
+       }
+
+       order_items {
+           UUID id PK "注文明細ID"
+           UUID order_id FK "注文ID"
+           UUID product_id FK "商品ID"
+           INTEGER quantity "数量"
+           INTEGER unit_price "単価"
+           INTEGER subtotal "小計"
+           TIMESTAMP created_at "作成日時"
+       }
+
+       %% リレーション定義
+       members ||--o{ orders : "1人の会員が複数の注文を持つ"
+       orders ||--o{ order_items : "1つの注文が複数の注文明細を持つ"
+       products ||--o{ order_items : "1つの商品が複数の注文明細で使用される"
+
 
 テーブル一覧
 --------------------------------------------
