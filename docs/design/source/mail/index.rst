@@ -6,5 +6,7 @@
 
    * - メールタイトル
      - リンク
+   * - 会員登録確認メール
+     - :doc:`member_registration_confirmation`
    * - テンプレート
      - :doc:`template`

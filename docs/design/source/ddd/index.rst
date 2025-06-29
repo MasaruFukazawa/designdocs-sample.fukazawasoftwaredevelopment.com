@@ -26,6 +26,7 @@ DDD設計では、ビジネスドメインの複雑さに対処するために�
 .. toctree::
    :maxdepth: 1
 
+   member_registration
    template
 
 テンプレート構造

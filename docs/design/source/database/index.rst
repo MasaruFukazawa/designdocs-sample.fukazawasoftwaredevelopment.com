@@ -23,6 +23,8 @@ ER図
 .. toctree::
    :maxdepth: 1
 
+   member_registration
+
 テンプレート
 --------------------------------------------
 
