@@ -6,7 +6,4 @@
    :caption: Contents:
 
    er
-   members
-   registration_requests
-   member_events
    template

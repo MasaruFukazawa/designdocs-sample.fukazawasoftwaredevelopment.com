@@ -7,6 +7,5 @@ DDD（Domain-Driven Design）設計
 .. toctree::
    :maxdepth: 1
 
-   member_registration
    template
 

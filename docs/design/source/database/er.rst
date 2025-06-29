@@ -14,9 +14,9 @@
 - 正規化による重複データの排除
 - インデックス最適化によるパフォーマンス向上
 
-**対象システム**: ECサイト会員管理システム
+**対象システム**: [ システム名を記載 ]
 
-**最終更新**: 2024年（会員登録機能実装時）
+**最終更新**: [ 更新日を記載 ]
 
 全体ER図
 --------------------------------------------
@@ -25,46 +25,13 @@
 
    %%{init: {"theme": "default"}}%%
    erDiagram
-       members {
-           UUID id PK "会員ID"
-           VARCHAR email "メールアドレス（一意）"
-           VARCHAR password_hash "パスワードハッシュ"
-           VARCHAR last_name "姓"
-           VARCHAR first_name "名"
-           VARCHAR last_name_kana "姓（カナ）"
-           VARCHAR first_name_kana "名（カナ）"
-           DATE birth_date "生年月日"
-           VARCHAR gender "性別"
-           VARCHAR postal_code "郵便番号"
-           VARCHAR prefecture "都道府県"
-           VARCHAR city "市区町村"
-           VARCHAR address_line "住所詳細"
-           VARCHAR phone_number "電話番号"
-           VARCHAR status "会員ステータス"
-           TIMESTAMP created_at "作成日時"
-           TIMESTAMP updated_at "更新日時"
-       }
-       
-       registration_requests {
-           UUID id PK "登録リクエストID"
-           JSONB request_data "登録データ（JSON）"
-           VARCHAR status "ステータス"
-           TIMESTAMP expires_at "有効期限"
-           TIMESTAMP created_at "作成日時"
-           TIMESTAMP updated_at "更新日時"
-       }
-       
-       member_events {
-           UUID id PK "イベントID"
-           UUID member_id FK "会員ID"
-           VARCHAR event_type "イベント種別"
-           JSONB event_data "イベントデータ（JSON）"
-           TIMESTAMP occurred_at "発生日時"
-           TIMESTAMP created_at "作成日時"
-       }
-       
-       %% リレーション定義
-       members ||--o{ member_events : "1人の会員が複数のイベントを持つ"
+       %% 実装済みテーブルをここに記載
+       %% example_table {
+       %%     UUID id PK "主キー"
+       %%     VARCHAR name "名前"
+       %%     TIMESTAMP created_at "作成日時"
+       %%     TIMESTAMP updated_at "更新日時"
+       %% }
        
        %% 将来拡張用のテーブル（コメントアウト状態）
        %% products {
@@ -113,18 +80,10 @@
      - 論理名
      - 主要用途
      - 詳細設計書
-   * - members
-     - 会員
-     - 会員基本情報の管理
-     - :doc:`member_registration`
-   * - registration_requests
-     - 登録リクエスト
-     - 会員登録プロセスの管理
-     - :doc:`member_registration`
-   * - member_events
-     - 会員イベント
-     - ドメインイベントの記録
-     - :doc:`member_registration`
+   * - [ テーブル名 ]
+     - [ 論理名 ]
+     - [ 用途説明 ]
+     - :doc:`[ ファイル名 ]`
 
 **将来追加予定のテーブル**:
 
@@ -161,11 +120,11 @@
      - 関係性
      - 外部キー
      - カーディナリティ
-   * - members
-     - member_events
-     - 会員とイベントの関係
-     - member_events.member_id
-     - 1:多（1人の会員が複数のイベントを持つ）
+   * - [ 親テーブル名 ]
+     - [ 子テーブル名 ]
+     - [ 関係性の説明 ]
+     - [ 外部キー名 ]
+     - [ カーディナリティ ]
 
 **将来実装予定**:
 
@@ -193,38 +152,20 @@
      - order_items.product_id
      - 1:多（1つの商品が複数の明細で使用）
 
-**独立テーブル**:
-
-.. list-table::
-   :header-rows: 1
-
-   * - テーブル名
-     - 説明
-     - 関連性
-   * - registration_requests
-     - 登録リクエスト管理
-     - 会員登録プロセスで使用、完了後は参照のみ
-
 データベース制約サマリー
 --------------------------------------------
 
 **一意制約**:
 
-- `members.email`: メールアドレスの重複禁止
-- `members.id`: 会員IDの一意性（主キー）
-- `registration_requests.id`: 登録リクエストIDの一意性（主キー）  
-- `member_events.id`: イベントIDの一意性（主キー）
+- [ テーブル名.カラム名 ]: [ 制約の説明 ]
 
 **外部キー制約**:
 
-- `member_events.member_id` → `members.id`: 会員イベントは必ず会員に紐づく
+- [ 子テーブル.外部キー ] → [ 親テーブル.主キー ]: [ 制約の説明 ]
 
 **チェック制約**:
 
-- `members.status`: 'active', 'inactive', 'suspended' のみ許可
-- `members.gender`: 'male', 'female', 'other', 'not_specified' のみ許可
-- `registration_requests.status`: 'pending', 'completed', 'expired', 'failed' のみ許可
-- `member_events.event_type`: 'registered', 'updated', 'deleted' など定義済み値のみ許可
+- [ テーブル名.カラム名 ]: [ 許可される値の説明 ]
 
 インデックス戦略
 --------------------------------------------
@@ -238,22 +179,10 @@
      - 対象テーブル
      - 対象カラム
      - 用途
-   * - idx_members_email
-     - members
-     - email
-     - ログイン認証での高速検索
-   * - idx_members_status
-     - members
-     - status
-     - アクティブ会員の絞り込み
-   * - idx_member_events_member_id
-     - member_events
-     - member_id
-     - 会員別イベント履歴の取得
-   * - idx_member_events_occurred_at
-     - member_events
-     - occurred_at
-     - 時系列でのイベント検索
+   * - [ インデックス名 ]
+     - [ テーブル名 ]
+     - [ カラム名 ]
+     - [ 用途説明 ]
 
 **複合インデックス**:
 
@@ -264,14 +193,10 @@
      - 対象テーブル
      - 対象カラム
      - 用途
-   * - idx_members_status_created_at
-     - members
-     - status, created_at
-     - ステータス別の登録日順ソート
-   * - idx_member_events_type_occurred
-     - member_events
-     - event_type, occurred_at
-     - イベント種別での時系列検索
+   * - [ インデックス名 ]
+     - [ テーブル名 ]
+     - [ カラム名, カラム名 ]
+     - [ 用途説明 ]
 
 拡張予定
 --------------------------------------------
@@ -336,7 +261,7 @@ ER図更新ルール
 
 **作成履歴**:
 
-- 2024年: 会員登録機能実装に伴う初期設計
+- [ 作成日 ]: [ 初期作成の経緯 ]
 - 今後: 機能追加に伴う段階的拡張予定
 
 **レビュー要件**:
@@ -355,7 +280,4 @@ ER図更新ルール
 
 **関連ドキュメント**:
 
-- :doc:`../ddd/member_registration`: 会員登録ドメイン設計
-- :doc:`../usecase/member_registration`: 会員登録ユースケース
-- :doc:`member_registration`: 会員登録テーブル詳細設計
 - :doc:`template`: データベーステーブル設計テンプレート
