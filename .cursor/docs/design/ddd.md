@@ -57,14 +57,65 @@
 - **メソッド**: 振る舞いとその処理内容・事前条件・事後条件
 - **制約・ビジネスルール**: 不変条件やバリデーションルール
 
+## ddd/index.rst 運用ルール
+
+### 基本構成（必須維持）
+
+```rst
+DDD（Domain-Driven Design）設計
+==============================================
+
+設計文書一覧
+--------------------------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   [DDD設計ファイル名]
+   template
+```
+
+### 新しいDDD設計ファイル追加時の手順
+
+1. **「設計文書一覧」セクションに追加**
+   - 新しいDDD設計ファイル（例: `user_management.rst`）を作成した場合
+   - `ddd/index.rst` の「設計文書一覧」セクションの `.. toctree::` に追加
+   - ファイル名は拡張子（`.rst`）を除いて記載
+
+2. **追加順序**
+   - 機能の重要度順または作成日順に配置
+   - `template` は常に最後に配置
+
+3. **記載例**:
+```rst
+設計文書一覧
+--------------------------------------------
+.. toctree::
+   :maxdepth: 1
+
+   member_registration
+   user_management
+   order_processing
+   template
+```
+
+### セクション構成ルール
+
+- **タイトル**: 「DDD（Domain-Driven Design）設計」で固定
+- **設計文書一覧セクション**: 個別のDDD設計ファイルを一覧
+- **templateファイル**: 常に最後に配置
+- toctree設定: `:maxdepth: 1` を統一使用
+
 ## ファイル構造例
 
 ```
 docs/design/source/ddd/
 ├── index.rst                    # DDD設計一覧（索引）
+├── member_registration.rst      # 会員登録バウンデッドコンテキスト
 ├── user_management.rst          # ユーザー管理バウンデッドコンテキスト
 ├── order_processing.rst         # 注文処理バウンデッドコンテキスト
-└── payment_handling.rst         # 決済処理バウンデッドコンテキスト
+├── payment_handling.rst         # 決済処理バウンデッドコンテキスト
+└── template.rst                 # テンプレートファイル
 ```
 
 ## テンプレート構造

@@ -144,6 +144,52 @@ docs/design/source/
 - GitHubのissueと常に連携し、要求の変更があった場合は適宜更新すること
 - Agile形式を守り、ユーザー視点での価値記述を心がけること
 
+## user_story/index.rst 運用ルール
+
+### 基本構成（必須維持）
+
+```rst
+ユーザーストーリー 一覧
+============================================
+
+.. toctree::
+   :maxdepth: 1
+
+   [ユーザーストーリーファイル名]
+   template
+```
+
+### 新しいユーザーストーリーファイル追加時の手順
+
+1. **「ユーザーストーリー 一覧」セクションに追加**
+   - 新しいユーザーストーリーファイル（例: `shopping_cart.rst`）を作成した場合
+   - `user_story/index.rst` の toctree に追加
+   - ファイル名は拡張子（`.rst`）を除いて記載
+
+2. **追加順序**
+   - 機能の重要度順または作成日順に配置
+   - `template` は常に最後に配置
+
+3. **記載例**:
+```rst
+ユーザーストーリー 一覧
+============================================
+
+.. toctree::
+   :maxdepth: 1
+
+   member_registration
+   shopping_cart
+   user_authentication
+   template
+```
+
+### セクション構成ルール
+
+- **タイトル**: 「ユーザーストーリー 一覧」で固定
+- **toctree設定**: `:maxdepth: 1` を使用
+- **templateファイル**: 常に最後に配置
+
 ## 関連文書
 
 - `docs/design/source/domain_model.rst`: 用語定義とクラス図

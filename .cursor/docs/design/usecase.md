@@ -335,6 +335,56 @@ docs/design/source/usecase/
 5. **保守性**: 要件変更時に修正しやすい構造になっているか
 6. **索引管理**: `docs/design/source/usecase/index.rst`にファイルリンクが追加されているか
 
+## usecase/index.rst 運用ルール
+
+### 基本構成（必須維持）
+
+```rst
+ユースケース 一覧
+============================================
+
+.. toctree::
+   :maxdepth: 1
+
+   [ユースケース記述ファイル名]
+   diagram
+   template
+```
+
+### 新しいユースケース記述ファイル追加時の手順
+
+1. **「ユースケース 一覧」セクションに追加**
+   - 新しいユースケース記述ファイル（例: `shopping_cart.rst`）を作成した場合
+   - `usecase/index.rst` の toctree に追加
+   - ファイル名は拡張子（`.rst`）を除いて記載
+
+2. **追加順序**
+   - 機能の重要度順または作成日順に配置
+   - `diagram` と `template` は常に最後に配置
+   - `diagram` → `template` の順序を維持
+
+3. **記載例**:
+```rst
+ユースケース 一覧
+============================================
+
+.. toctree::
+   :maxdepth: 1
+
+   member_registration
+   shopping_cart
+   user_authentication
+   diagram
+   template
+```
+
+### セクション構成ルール
+
+- **タイトル**: 「ユースケース 一覧」で固定
+- **toctree設定**: `:maxdepth: 1` を使用
+- **固定ファイル**: `diagram` と `template` は常に最後
+- **順序**: 個別記述 → diagram → template の順序を維持
+
 ## 関連ファイル
 
 - `docs/design/source/usecase.rst` - ユースケース図・記述の索引

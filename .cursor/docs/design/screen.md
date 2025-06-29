@@ -202,3 +202,50 @@ docs/design/source/screen/
 - [ ] `docs/design/source/screen/index.rst` にリンクが追加されている
 - [ ] 新しい用語・画面名が `docs/design/source/domain_model.rst` に定義されている
 - [ ] 関連するユースケース記述にこの画面遷移図へのリンクが追加されている
+
+## screen/index.rst 運用ルール
+
+### 基本構成（必須維持）
+
+```rst
+画面仕様
+==============================================
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents:
+
+   [画面仕様ファイル名]
+```
+
+### 新しい画面仕様ファイル追加時の手順
+
+1. **toctree に追加**
+   - 新しい画面仕様ファイル（例: `user_interface.rst`）を作成した場合
+   - `screen/index.rst` の toctree に追加
+   - ファイル名は拡張子（`.rst`）を除いて記載
+
+2. **追加順序**
+   - 機能の重要度順または作成日順に配置
+   - 画面遷移図ファイルは上位に配置
+
+3. **記載例**:
+```rst
+画面仕様
+==============================================
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents:
+
+   diagram
+   user_interface
+   admin_interface
+```
+
+### セクション構成ルール
+
+- **タイトル**: 「画面仕様」で固定
+- **toctree設定**: `:maxdepth: 1` と `:caption: Contents:` を使用
+- **画面遷移図**: `diagram` ファイルを上位に配置
+- **コメント**: Sphinx自動生成コメントは削除済み
