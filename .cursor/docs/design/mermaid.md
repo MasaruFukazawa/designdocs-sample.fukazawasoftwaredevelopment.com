@@ -300,6 +300,20 @@ end
       }
 ```
 
+#### テーブル名・エンティティ名の制限
+```rst
+❌ [ テーブル名 ]          （角括弧プレースホルダー）
+❌ "table name"           （ダブルクォート囲み）
+❌ table-name             （ハイフン含み）
+❌ 123table               （数字開始）
+❌ table name             （スペース含み）
+
+✅ table_name             （アンダースコア）
+✅ TableName              （キャメルケース）
+✅ users                  （シンプルな英数字）
+✅ example_table          （アンダースコア区切り）
+```
+
 ### 4. クラス図（classDiagram）
 
 #### 基本構文
@@ -325,6 +339,43 @@ end
 
    [Mermaidコード]
 ```
+
+### テンプレートファイルでの記述ルール
+
+#### ❌ 避けるべき記法
+```rst
+.. mermaid::
+
+   erDiagram
+       [ テーブル名1 ] {           ❌ 角括弧プレースホルダー
+           [ データ型 ] [ カラム名 ] PK "[ 説明 ]"
+       }
+```
+
+#### ✅ 推奨記法
+```rst
+.. mermaid::
+
+   erDiagram
+       %% 実際の使用例（コメントアウト可能）
+       example_table {
+           UUID id PK "主キー"
+           VARCHAR name "名前"
+           TIMESTAMP created_at "作成日時"
+       }
+       
+       %% または完全にコメントアウト
+       %% your_table {
+       %%     UUID id PK "主キー"
+       %%     VARCHAR name "名前"
+       %% }
+```
+
+#### テンプレート作成の原則
+1. **プレースホルダーは使わない** - 角括弧`[ ]`はMermaidエラー
+2. **有効な例を提供** - `example_table`等の実用的なサンプル
+3. **コメント活用** - `%%`でテンプレート部分をコメント化可能
+4. **段階的利用** - コメントアウト→コメント外し→実際の名前に変更
 
 ### オプション付き記述
 ```rst
@@ -389,6 +440,14 @@ end
 - **end** - 各構文の終了キーワード
 - **direction** - 方向指定（TD, LR, BT, RL）
 
+### 特殊文字・記号の制限
+- **角括弧**: `[ ]` - プレースホルダーとして使用不可
+- **ダブルクォート**: `"name"` - エンティティ名では使用不可
+- **ハイフン**: `-` - 識別子内では使用不可（矢印記号と競合）
+- **ドット**: `.` - 属性名では使用不可
+- **クエスチョン**: `?` - 属性名では使用不可
+- **スペース**: ` ` - 識別子内では使用不可
+
 ## 日本語対応ルール
 
 ### 使用可能な日本語
@@ -400,6 +459,7 @@ end
 - **参加者名**: `participant クライアント` ❌
 - **変数名**: `クライアント->>サーバー` ❌
 - **予約語との競合**: `participant Actor as アクター` ❌
+- **テーブル名**: `テーブル名` ❌（英数字推奨）
 
 ## エラー対策
 
@@ -419,6 +479,52 @@ sequenceDiagram
 ✅ .. mermaid::
 
    sequenceDiagram
+```
+
+#### 3. プレースホルダーエラー
+```rst
+❌ .. mermaid::
+
+   erDiagram
+       [ テーブル名 ] {
+           [ データ型 ] [ カラム名 ] PK
+       }
+
+✅ .. mermaid::
+
+   erDiagram
+       example_table {
+           UUID id PK "主キー"
+           VARCHAR name "名前"
+       }
+```
+
+#### 4. init設定エラー（Sphinx環境）
+```rst
+❌ .. mermaid::
+
+   %%{init: {"theme": "default"}}%%
+   sequenceDiagram
+
+✅ .. mermaid::
+
+   sequenceDiagram
+```
+
+#### 5. 空のER図エラー
+```rst
+❌ .. mermaid::
+
+   erDiagram
+       %% すべてコメントアウト
+       %% table1 { ... }
+
+✅ .. mermaid::
+
+   erDiagram
+       example_table {
+           UUID id PK "主キー"
+       }
 ```
 
 #### 3. 日本語文字化け

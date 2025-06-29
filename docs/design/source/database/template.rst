@@ -175,22 +175,25 @@ ER図
 .. mermaid::
 
    erDiagram
-       [ テーブル名1 ] {
-           [ データ型 ] [ カラム名1 ] PK "[ 説明 ]"
-           [ データ型 ] [ カラム名2 ] FK "[ 説明 ]"
-           [ データ型 ] [ カラム名3 ] "[ 説明 ]"
+       %% テンプレート例
+       example_table {
+           UUID id PK "主キー"
+           VARCHAR name "名前"
+           TEXT description "説明"
+           INTEGER status "ステータス"
            TIMESTAMP created_at "作成日時"
            TIMESTAMP updated_at "更新日時"
        }
-       
-       [ テーブル名2 ] {
-           [ データ型 ] [ カラム名1 ] PK "[ 説明 ]"
-           [ データ型 ] [ カラム名2 ] "[ 説明 ]"
+
+       related_table {
+           UUID id PK "主キー"
+           UUID example_table_id FK "関連テーブルID"
+           VARCHAR value "値"
            TIMESTAMP created_at "作成日時"
            TIMESTAMP updated_at "更新日時"
        }
-       
-       [ テーブル名1 ] ||--o{ [ テーブル名2 ] : "[ リレーション説明 ]"
+
+       example_table ||--o{ related_table : "1対多の関係"
 
 初期データ・マスタデータ
 --------------------------------------------
