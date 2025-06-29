@@ -20,6 +20,7 @@
    screen/index
    database/index
    mail/index
+   batch/index
 
    mermaid-sample
    openapi-sample
