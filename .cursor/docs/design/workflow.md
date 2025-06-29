@@ -22,15 +22,15 @@
 **目的**: ユーザー視点での価値を明確にする  
 **インプット**:
 - 前ステップで確認したGitHubのissue
-- `source/user_story/template.rst`（テンプレートファイル）
+- `docs/design/source/user_story/template.rst`（テンプレートファイル）
 
 **作業内容**:
-- `source/user_story/template.rst` をコピー
+- `docs/design/source/user_story/template.rst` をコピー
 - Agile形式（As a/I want/So that）でユーザーストーリーを記述
 - Given-When-Thenシナリオで受け入れ条件を定義
-- `source/user_story.rst` の `toctree` に新ファイルを追加
+- `docs/design/source/user_story.rst` の `toctree` に新ファイルを追加
 
-**成果物**: `source/user_story/[機能名].rst`  
+**成果物**: `docs/design/source/user_story/[機能名].rst`  
 **参照ルール**: `.cursor/user_story.md`
 
 ---
@@ -39,15 +39,15 @@
 **目的**: 用語統一とシステム全体の概念を定義する  
 **インプット**:
 - 前ステップで作成したユーザーストーリー
-- 既存の `source/domain_model.rst`（用語・概念の統一のため）
+- 既存の `docs/design/source/domain_model.rst`（用語・概念の統一のため）
 
 **作業内容**:
 - ユーザーストーリーで新しく出てきた用語・アクターを定義
-- `source/domain_model.rst` に用語説明を追加
+- `docs/design/source/domain_model.rst` に用語説明を追加
 - 必要に応じてMermaidクラス図を作成・更新
 - システム内の関係性を明確化
 
-**成果物**: 更新された `source/domain_model.rst`
+**成果物**: 更新された `docs/design/source/domain_model.rst`
 
 ---
 
@@ -56,15 +56,15 @@
 **インプット**:
 - 前ステップで作成したユーザーストーリー
 - 前ステップで更新したドメインモデル（アクター・用語定義）
-- `source/usecase/template.rst`（必要に応じて）
+- `docs/design/source/usecase/template.rst`（必要に応じて）
 
 **作業内容**:
 - ユースケース図の作成（Mermaid形式）
 - ユースケース記述の作成（必要に応じて）
 - アクターとシステムの相互作用を定義
-- `source/usecase.rst` への索引追加
+- `docs/design/source/usecase.rst` への索引追加
 
-**成果物**: `source/usecase/[機能名].rst`  
+**成果物**: `docs/design/source/usecase/[機能名].rst`  
 **参照ルール**: `.cursor/usecase.md`
 
 ---
@@ -75,16 +75,16 @@
 - 前ステップで作成したユーザーストーリー（メール送信要件）
 - 前ステップで更新したドメインモデル（用語・アクター定義）
 - 前ステップで作成したユースケース（メール送信タイミング・条件）
-- `source/mail/template.rst`（テンプレートファイル）
+- `docs/design/source/mail/template.rst`（テンプレートファイル）
 
 **作業内容**:
-- `source/mail/template.rst` をコピーしてメール定義書を作成
+- `docs/design/source/mail/template.rst` をコピーしてメール定義書を作成
 - メールの送信元・送信先・件名・本文を具体的に記述
 - 必要に応じて変数一覧を定義
-- `source/mail/index.rst` にリンクを追加
+- `docs/design/source/mail/index.rst` にリンクを追加
 - 関連するユースケース記述の「メール一覧」セクションにリンクを追加
 
-**成果物**: `source/mail/[メール名].rst`  
+**成果物**: `docs/design/source/mail/[メール名].rst`  
 **参照ルール**: `.cursor/mail.md`
 
 ---
@@ -96,14 +96,14 @@
 - 前ステップで更新したドメインモデル（エンティティ・クラス図）
 - 前ステップで作成したユースケース（データの流れ・操作）
 - 前ステップで作成したメール定義書（メール送信に必要なデータ項目）
-- 既存の `source/database/er.rst`（既存設計との整合性のため）
+- 既存の `docs/design/source/database/er.rst`（既存設計との整合性のため）
 
 **作業内容**:
-- ER図の作成・更新（`source/database/er.rst`）
+- ER図の作成・更新（`docs/design/source/database/er.rst`）
 - テーブル設計書の作成（必要に応じて）
 - データ整合性とビジネスルールの定義
 
-**成果物**: 更新された `source/database/er.rst`  
+**成果物**: 更新された `docs/design/source/database/er.rst`  
 **参照ルール**: `.cursor/database.md`
 
 ## ワークフロー図
@@ -135,17 +135,17 @@ graph TD
 | ステップ | インプット | 成果物 |
 |----------|------------|--------|
 | 1. GitHubのissue確認 | GitHubのissue | issue内容の理解 |
-| 2. ユーザーストーリー作成 | issue + `user_story/template.rst` | `user_story/[機能名].rst` |
-| 3. ドメインモデル作成 | ユーザーストーリー + 既存`domain_model.rst` | 更新された`domain_model.rst` |
-| 4. ユースケース作成 | ユーザーストーリー + ドメインモデル + `usecase/template.rst` | `usecase/[機能名].rst` |
-| 5. メール定義書作成 | ユーザーストーリー + ドメインモデル + ユースケース + `mail/template.rst` | `mail/[メール名].rst` |
-| 6. データベース設計 | ユーザーストーリー + ドメインモデル + ユースケース + メール定義書 + 既存`database/er.rst` | 更新された`database/er.rst` |
+| 2. ユーザーストーリー作成 | issue + `docs/design/source/user_story/template.rst` | `docs/design/source/user_story/[機能名].rst` |
+| 3. ドメインモデル作成 | ユーザーストーリー + 既存`docs/design/source/domain_model.rst` | 更新された`docs/design/source/domain_model.rst` |
+| 4. ユースケース作成 | ユーザーストーリー + ドメインモデル + `docs/design/source/usecase/template.rst` | `docs/design/source/usecase/[機能名].rst` |
+| 5. メール定義書作成 | ユーザーストーリー + ドメインモデル + ユースケース + `docs/design/source/mail/template.rst` | `docs/design/source/mail/[メール名].rst` |
+| 6. データベース設計 | ユーザーストーリー + ドメインモデル + ユースケース + メール定義書 + 既存`docs/design/source/database/er.rst` | 更新された`docs/design/source/database/er.rst` |
 
 ## ファイル構造とルール
 
 ### 設計文書の配置
 ```
-source/
+docs/design/source/
 ├── user_story.rst           # ユーザーストーリー一覧
 ├── domain_model.rst         # ドメインモデル・用語定義
 ├── usecase.rst             # ユースケース一覧
@@ -169,7 +169,7 @@ source/
 
 ### ルール文書の配置
 ```
-.cursor/
+.cursor/docs/design/
 ├── workflow.md             # 統一ワークフロー（このファイル）
 ├── user_story.md          # ユーザーストーリー作成ルール
 ├── usecase.md             # ユースケース作成ルール
@@ -188,10 +188,10 @@ source/
 - **ファイル名変更時**: 対応する `index.rst` のリンクも更新
 
 #### フォルダ別index.rstファイル
-- `source/user_story/index.rst`: ユーザーストーリーファイル一覧
-- `source/usecase/index.rst`: ユースケースファイル一覧
-- `source/mail/index.rst`: メール定義書ファイル一覧
-- `source/database/index.rst`: データベース設計ファイル一覧
+- `docs/design/source/user_story/index.rst`: ユーザーストーリーファイル一覧
+- `docs/design/source/usecase/index.rst`: ユースケースファイル一覧
+- `docs/design/source/mail/index.rst`: メール定義書ファイル一覧
+- `docs/design/source/database/index.rst`: データベース設計ファイル一覧
 
 #### 標準構造
 ```rst

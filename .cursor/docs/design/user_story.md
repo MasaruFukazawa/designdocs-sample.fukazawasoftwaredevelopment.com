@@ -5,22 +5,22 @@
 ## 基本ルール
 
 ### 1. ファイル保存場所
-- ユーザーストーリーファイルは `source/user_story/` ディレクトリに保存すること
+- ユーザーストーリーファイルは `docs/design/source/user_story/` ディレクトリに保存すること
 - ファイル名は内容を表す分かりやすい名前にすること（例：`shopping_cart.rst`, `user_login.rst`）
 
 ### 2. テンプレートの使用
-- 新しいユーザーストーリーを作成する際は、`source/user_story/template.rst` をコピーして使用すること
+- 新しいユーザーストーリーを作成する際は、`docs/design/source/user_story/template.rst` をコピーして使用すること
 - テンプレートの構造を維持し、全てのセクションを埋めること
 - **Agile形式**を採用：「As a / I want / So that」+ 「Given-When-Then」の形式
 
 ### 3. インデックスファイルへの追加
-- 作成したユーザーストーリーファイルは、`source/user_story/index.rst` の `.. toctree::` セクションにリンクを追加すること
+- 作成したユーザーストーリーファイルは、`docs/design/source/user_story/index.rst` の `.. toctree::` セクションにリンクを追加すること
 - ファイル名は拡張子（`.rst`）を除いて記載すること
 - リンクの順序は機能の重要度や作成順などを考慮して整理すること
 - `template.rst` は通常最後に配置すること
 
 ### 4. 用語・設計の統一
-- ユーザーストーリーで新しく出てきた用語は、`source/domain_model.rst` に用語とその説明を記述すること
+- ユーザーストーリーで新しく出てきた用語は、`docs/design/source/domain_model.rst` に用語とその説明を記述すること
 - 専門用語、システム固有の概念、業務用語などは必ず定義を追加すること
 - ドメインモデルの用語と一貫性を保つこと
 
@@ -48,12 +48,12 @@
    - 要求の背景と期待される結果を理解
 
 2. **ユーザーストーリー作成**（← このステップ）
-   - `source/user_story/template.rst` をコピー
+   - `docs/design/source/user_story/template.rst` をコピー
    - Agile形式でユーザーストーリーを記述
-   - `source/user_story.rst` の `toctree` に新ファイルを追加
+   - `docs/design/source/user_story.rst` の `toctree` に新ファイルを追加
 
 3. **ドメインモデル作成**
-   - ユーザーストーリーで新しく出てきた用語・アクターを `source/domain_model.rst` に定義
+   - ユーザーストーリーで新しく出てきた用語・アクターを `docs/design/source/domain_model.rst` に定義
    - 必要に応じてクラス図を作成・更新
 
 4. **ユースケース作成**
@@ -96,7 +96,7 @@ Then [期待される結果]
 ## ファイル構造例
 
 ```
-source/
+docs/design/source/
 ├── user_story.rst                    # ユーザーストーリー一覧（インデックス）
 ├── domain_model.rst                  # 用語定義・ドメインモデル・クラス図
 ├── usecase.rst                      # ユースケース一覧
@@ -126,7 +126,7 @@ source/
 - [ ] 受け入れ条件が具体的で測定可能
 - [ ] ドメインモデルの用語と一貫性がある
 - [ ] 3つのシナリオ（成功+異常パターン）が記述されている
-- [ ] `source/user_story/index.rst`にファイルリンクが追加されている
+- [ ] `docs/design/source/user_story/index.rst`にファイルリンクが追加されている
 
 ### レビューポイント
 - [ ] ユーザーストーリーが価値ベースで記述されている
@@ -146,8 +146,8 @@ source/
 
 ## 関連文書
 
-- `source/domain_model.rst`: 用語定義とクラス図
-- `source/usecase.rst`: ユースケース設計
-- `source/database.rst`: データベース設計
+- `docs/design/source/domain_model.rst`: 用語定義とクラス図
+- `docs/design/source/usecase.rst`: ユースケース設計
+- `docs/design/source/database.rst`: データベース設計
 - `.cursor/database.md`: データベース設計ルール
 - `.cursor/usecase.md`: ユースケース作成ルール 

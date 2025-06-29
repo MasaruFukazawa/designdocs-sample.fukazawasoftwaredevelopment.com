@@ -3,24 +3,24 @@
 ## 基本ルール
 
 ### ファイル保存場所
-- **ユースケース図**: `source/usecase/diagram.rst` またはメイン図として
-- **個別ユースケース記述**: `source/usecase/` ディレクトリに個別ファイル
-- **索引**: `source/usecase.rst` に新ファイルのリンクを追加
+- **ユースケース図**: `docs/design/source/usecase/diagram.rst` またはメイン図として
+- **個別ユースケース記述**: `docs/design/source/usecase/` ディレクトリに個別ファイル
+- **索引**: `docs/design/source/usecase.rst` に新ファイルのリンクを追加
 
 ### テンプレート使用
-- **ユースケース図**: `source/usecase/diagram.rst` をベースに作成
-- **ユースケース記述**: `source/usecase/template.rst` をコピーして使用
+- **ユースケース図**: `docs/design/source/usecase/diagram.rst` をベースに作成
+- **ユースケース記述**: `docs/design/source/usecase/template.rst` をコピーして使用
 
 ### 用語・アクター統一
-- 新しい用語・アクターは `source/domain_model.rst` に定義を記述
+- 新しい用語・アクターは `docs/design/source/domain_model.rst` に定義を記述
 - ユースケースで使用するアクター名・用語は必ずdomain_modelに登録されているものを使用
 
 ## インプット情報と推奨ワークフロー
 
 ### 主要なインプット
 1. **GitHubのissue**: 具体的な機能要求や不具合報告
-2. **ユーザーストーリー**: `source/user_story/*.rst` に記載された要求（Agile形式）
-3. **ドメインモデル**: `source/domain_model.rst` に定義されたアクターと用語、クラス図
+2. **ユーザーストーリー**: `docs/design/source/user_story/*.rst` に記載された要求（Agile形式）
+3. **ドメインモデル**: `docs/design/source/domain_model.rst` に定義されたアクターと用語、クラス図
 
 ### 推奨ワークフロー
 1. **GitHubのissue確認**: 具体的な機能要求や不具合報告の詳細を理解
@@ -59,16 +59,16 @@
 ### 1. GitHubのissueからユースケース図を作成する場合
 
 1. GitHubのissueを確認し、アクターとユースケースを特定
-2. `source/usecase/diagram.rst` のテンプレートを使用
+2. `docs/design/source/usecase/diagram.rst` のテンプレートを使用
 3. アクター毎にセクションを分けて図を作成
-4. 新しい用語があれば `source/domain_model.rst` に追加
-5. `source/usecase.rst` にリンクを追加
+4. 新しい用語があれば `docs/design/source/domain_model.rst` に追加
+5. `docs/design/source/usecase.rst` にリンクを追加
 
 ### 2. 新しいユースケース図ファイルを作成する場合
 
-1. `source/usecase/` ディレクトリに新しい `.rst` ファイルを作成
+1. `docs/design/source/usecase/` ディレクトリに新しい `.rst` ファイルを作成
 2. テンプレート形式に従って作成
-3. `source/usecase.rst` にリンクを追加
+3. `docs/design/source/usecase.rst` にリンクを追加
 
 ## アクターアイコン
 
@@ -112,7 +112,7 @@ graph TD
 ## ファイル構造例
 
 ```
-source/usecase/
+docs/design/source/usecase/
 ├── diagram.rst          # メインのユースケース図
 ├── shopping_flow.rst    # ショッピングフロー図
 └── admin_tasks.rst      # 管理者タスク図
@@ -133,15 +133,15 @@ source/usecase/
 ## 基本ルール
 
 ### ファイル管理
-1. **ファイル保存場所**: `source/usecase/` ディレクトリに保存
-2. **テンプレート使用**: `source/usecase/template.rst` をコピーして使用
+1. **ファイル保存場所**: `docs/design/source/usecase/` ディレクトリに保存
+2. **テンプレート使用**: `docs/design/source/usecase/template.rst` をコピーして使用
 3. **ファイル命名規則**: `[ 機能名 ]_[ 動作 ].rst` （例: `shopping_cart_registration.rst`）
-4. **索引への追加**: `source/usecase/index.rst` の `.. toctree::` セクションにリンクを追加
+4. **索引への追加**: `docs/design/source/usecase/index.rst` の `.. toctree::` セクションにリンクを追加
 
 ### 用語・設計統一
-5. **ドメインモデル連携**: 新しいアクターや用語は `source/domain_model.rst` に定義を追加
-6. **データベース連携**: データ構造が関わる場合は `source/database/er.rst` も参照・更新
-7. **ユーザーストーリー連携**: 対応する `source/user_story/*.rst` を参照
+5. **ドメインモデル連携**: 新しいアクターや用語は `docs/design/source/domain_model.rst` に定義を追加
+6. **データベース連携**: データ構造が関わる場合は `docs/design/source/database/er.rst` も参照・更新
+7. **ユーザーストーリー連携**: 対応する `docs/design/source/user_story/*.rst` を参照
 
 ### Git運用
 8. **コミット**: ユースケース作成時は関連ファイル更新も含めてコミット
@@ -203,9 +203,9 @@ source/usecase/
 
 1. **インプット情報の収集**:
    - GitHubのissueの内容を確認
-   - 関連する `source/user_story/*.rst` のユーザーストーリーを参照（As a/I want/So that + Given-When-Then形式）
-   - `source/domain_model.rst` でアクターと用語の定義、クラス図を確認
-   - 必要に応じて `source/database/er.rst` でデータ構造を確認
+   - 関連する `docs/design/source/user_story/*.rst` のユーザーストーリーを参照（As a/I want/So that + Given-When-Then形式）
+   - `docs/design/source/domain_model.rst` でアクターと用語の定義、クラス図を確認
+   - 必要に応じて `docs/design/source/database/er.rst` でデータ構造を確認
 
 2. **ユースケースの分析**:
    - **主アクター**: ユーザーストーリーの「As a」から特定
@@ -285,20 +285,20 @@ source/usecase/
 3. **一貫性**: 用語やアクター名が統一されているか
 4. **実装可能性**: 実際の開発で使用できるレベルの詳細度か
 5. **保守性**: 要件変更時に修正しやすい構造になっているか
-6. **索引管理**: `source/usecase/index.rst`にファイルリンクが追加されているか
+6. **索引管理**: `docs/design/source/usecase/index.rst`にファイルリンクが追加されているか
 
 ## 関連ファイル
 
-- `source/usecase.rst` - ユースケース図・記述の索引
-- `source/usecase/template.rst` - ユースケース記述テンプレート  
-- `source/usecase/diagram.rst` - ユースケース図テンプレート
-- `source/domain_model.rst` - プロジェクト用語定義
-- `source/user_story.rst` - ユーザーストーリー
+- `docs/design/source/usecase.rst` - ユースケース図・記述の索引
+- `docs/design/source/usecase/template.rst` - ユースケース記述テンプレート  
+- `docs/design/source/usecase/diagram.rst` - ユースケース図テンプレート
+- `docs/design/source/domain_model.rst` - プロジェクト用語定義
+- `docs/design/source/user_story.rst` - ユーザーストーリー
 - `.cursor/user_story.md` - ユーザーストーリー作成ルール
 
 ## 用語・アクター名の統一ルール
 
-- **アクター名**: `source/domain_model.rst` のアクターセクションに定義されている名称を使用
-- **専門用語**: `source/domain_model.rst` の用語セクションに定義されている用語を使用  
-- **新しいアクター・用語**: ユースケース作成前に必ず `source/domain_model.rst` に追加してから使用
+- **アクター名**: `docs/design/source/domain_model.rst` のアクターセクションに定義されている名称を使用
+- **専門用語**: `docs/design/source/domain_model.rst` の用語セクションに定義されている用語を使用  
+- **新しいアクター・用語**: ユースケース作成前に必ず `docs/design/source/domain_model.rst` に追加してから使用
 - **表記揺れ防止**: 同じ概念に対して複数の表現を使わず、domain_modelの定義に統一

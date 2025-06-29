@@ -45,7 +45,7 @@
 - 標準形式に従ったユースケース記述テンプレートを追加
 - 包括的なユースケース作成ルール (.cursor/usecase.md) を作成
 - ワークフロー確立: issue -> user_story -> domain_model -> usecase
-- ユースケース索引 (source/usecase.rst) を追加
+- ユースケース索引 (docs/design/source/usecase.rst) を追加
 - domain_modelとの用語統一を確保
 ```
 
@@ -155,7 +155,7 @@ git commit -m "正しいコミットメッセージ"
 
 - `.cursor/user_story.md` - ユーザーストーリー作成ルール
 - `.cursor/usecase.md` - ユースケース作成ルール
-- `source/domain_model.rst` - プロジェクト用語定義
+- `docs/design/source/domain_model.rst` - プロジェクト用語定義
 - `.gitignore` - Git除外設定
 
 ## 追加・更新した内容
@@ -183,9 +183,9 @@ git commit -m "正しいコミットメッセージ"
 ### ユースケース記述との連携ルール
 メール定義書を作成する際は、以下の連携が必須となります：
 
-1. **メール定義書作成**：`source/mail/[メール名].rst`
-2. **インデックス更新**：`source/mail/index.rst`にリンク追加
-3. **ユースケース更新**：関連する`source/usecase/[機能名].rst`の「メール一覧」セクションにリンク追加
+1. **メール定義書作成**：`docs/design/source/mail/[メール名].rst`
+2. **インデックス更新**：`docs/design/source/mail/index.rst`にリンク追加
+3. **ユースケース更新**：関連する`docs/design/source/usecase/[機能名].rst`の「メール一覧」セクションにリンク追加
 
 これにより、ユースケースからメール定義書への**トレーサビリティ**が確保されます。
 

@@ -3,10 +3,10 @@
 ## 基本ルール
 
 ### ファイル保存場所
-- ER図: `source/database/er.rst`
-- テーブル設計: `source/database/[テーブル名小文字].rst`
-- テーブル一覧: `source/database/table_list.rst`
-- テンプレート: `source/database/template.rst`
+- ER図: `docs/design/source/database/er.rst`
+- テーブル設計: `docs/design/source/database/[テーブル名小文字].rst`
+- テーブル一覧: `docs/design/source/database/table_list.rst`
+- テンプレート: `docs/design/source/database/template.rst`
 
 ### ファイル命名規則
 - テーブル設計ファイル名: テーブル名を小文字に変換（例: `USERS` → `users.rst`）
@@ -16,9 +16,9 @@
 
 ### 主要なインプット
 1. **GitHubのissue**: 機能要件の確認
-2. **ユーザーストーリー**: `source/user_story/*.rst` のAgile形式要求
-3. **ドメインモデル**: `source/domain_model.rst` の用語・エンティティ・クラス図
-4. **ユースケース**: `source/usecase/*.rst` のユースケース図・記述
+2. **ユーザーストーリー**: `docs/design/source/user_story/*.rst` のAgile形式要求
+3. **ドメインモデル**: `docs/design/source/domain_model.rst` の用語・エンティティ・クラス図
+4. **ユースケース**: `docs/design/source/usecase/*.rst` のユースケース図・記述
 
 ### 推奨ワークフロー
 1. **GitHubのissue確認**: 機能要件の確認
@@ -32,7 +32,7 @@
 
 ### フォーマット
 - Mermaid形式のerDiagramを使用
-- `source/database/er.rst`に配置
+- `docs/design/source/database/er.rst`に配置
 
 ### 記載内容
 - テーブル名（英大文字）
@@ -55,7 +55,7 @@ erDiagram
 ## テーブル設計作成ルール
 
 ### テンプレート使用
-- `source/database/template.rst`をベースに作成
+- `docs/design/source/database/template.rst`をベースに作成
 - 必須セクション: 説明、カラム、インデックス、制約・ビジネスルール
 
 ### カラム定義
@@ -81,12 +81,12 @@ erDiagram
 ## ファイル更新ルール
 
 ### table_list.rst更新
-- 新しいテーブルファイル作成時は必ず`source/database/table_list.rst`を更新
+- 新しいテーブルファイル作成時は必ず`docs/design/source/database/table_list.rst`を更新
 - `:doc:`テーブル名``形式でリンク追加
 - テーブルの簡潔な説明を併記
 
 ### 索引への追加
-- `source/database/index.rst`の適切な`.. toctree::`セクションに新ファイルを追加
+- `docs/design/source/database/index.rst`の適切な`.. toctree::`セクションに新ファイルを追加
 - テーブル設計ファイルは「テーブル設計詳細」セクションに追加
 - ファイル名は拡張子（`.rst`）を除いて記載
 
@@ -118,7 +118,7 @@ erDiagram
 - [ ] インデックスが適切に設計されている
 - [ ] ビジネスルールが明記されている
 - [ ] table_list.rstが更新されている
-- [ ] `source/database/index.rst`の適切なセクションにリンクが追加されている
+- [ ] `docs/design/source/database/index.rst`の適切なセクションにリンクが追加されている
 - [ ] ファイル命名規則に従っている
 
 ### レビューポイント
@@ -128,7 +128,7 @@ erDiagram
 - ビジネス要件との整合性
 
 ## 関連ファイル参照
-- ユーザーストーリー: `source/user_story/`
-- ユースケース: `source/usecase/`
-- ドメインモデル: `source/domain_model.rst`
-- プロジェクト計画: `source/project_plan.rst`
+- ユーザーストーリー: `docs/design/source/user_story/`
+- ユースケース: `docs/design/source/usecase/`
+- ドメインモデル: `docs/design/source/domain_model.rst`
+- プロジェクト計画: `docs/design/source/project_plan.rst`
