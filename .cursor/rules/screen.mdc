@@ -15,8 +15,21 @@ alwaysApply: true
 
 ### 2. テンプレート使用
 - **画面遷移図**: [docs/design/source/screen/diagram.rst](mdc:docs/design/source/screen/diagram.rst) をベースに作成
+- **機能別画面遷移**: [docs/design/source/screen/diagram.rst](mdc:docs/design/source/screen/diagram.rst) の機能別画面遷移テンプレートを使用してdiagram.rstに直接追加
 
-### 3. 用語・画面名統一
+### 3. 機能別画面遷移テンプレートの使用
+- **標準的な画面遷移パターン**: 単純な入力→検証→完了フローに使用
+  - 基本的なCRUD操作（登録、更新、削除）
+  - 単一画面での入力処理
+  - エラー処理が比較的単純な場合
+- **複雑なフローパターン**: 多段階・条件分岐を含むフローに使用
+  - 複数画面にわたる入力処理
+  - 条件による画面遷移の分岐
+  - 複雑なエラーハンドリングが必要な場合
+- **追加場所**: [docs/design/source/screen/diagram.rst](mdc:docs/design/source/screen/diagram.rst) の「機能別画面遷移テンプレート」セクションに直接追加
+- **テンプレート適用**: 画面名・処理内容を具体的な機能に置き換えて使用
+
+### 4. 用語・画面名統一
 - 新しい用語・画面名は [docs/design/source/domain_model.rst](mdc:docs/design/source/domain_model.rst) に定義を記述
 - 画面遷移図で使用する画面名・用語は必ずdomain_modelに登録されているものを使用
 - ユースケースで定義されたアクター・操作と整合性を保つ
