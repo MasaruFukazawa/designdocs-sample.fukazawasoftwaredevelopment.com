@@ -1,0 +1,132 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# データベース設計ルール
+
+このプロジェクトでデータベース設計を行う際の標準ルールです。
+
+## 基本ルール
+
+### 1. ファイル保存場所
+- データベース設計ファイルは [docs/design/source/database/](mdc:docs/design/source/database) ディレクトリに保存
+- ER図は `er.rst` に集約管理
+- テーブル定義は機能単位でファイル分割（例：`user_tables.rst`, `product_tables.rst`）
+
+### 2. テンプレートの使用
+- [docs/design/source/database/template.rst](mdc:docs/design/source/database/template.rst) をコピーして使用
+- テンプレートの構造を維持し、全セクションを埋める
+- **統一構造**：概要 → テーブル一覧 → 詳細定義 → インデックス → 制約
+
+### 3. インデックスファイルへの追加
+- [docs/design/source/database/index.rst](mdc:docs/design/source/database/index.rst) のテーブルにリンクを追加
+- テーブル名と `:doc:` リンクを適切に記載
+- テンプレートファイルは最後に配置
+
+### 4. 用語・設計の統一
+- 新しい用語は [docs/design/source/domain_model.rst](mdc:docs/design/source/domain_model.rst) に定義を追加
+- 専門用語、システム固有の概念、業務用語は必ず定義
+- ドメインモデルの用語と一貫性を保つ
+
+## 設計原則
+
+### テーブル設計
+1. **命名規則**
+   - テーブル名：スネークケース、複数形
+   - カラム名：スネークケース
+   - 主キー：`id`（単一）または`[テーブル名]_id`（複合）
+   - 外部キー：参照先テーブル名の単数形 + `_id`
+
+2. **データ型選択**
+   - 適切なデータ型の使用
+   - 文字列長の適切な設定
+   - 数値型の範囲考慮
+
+3. **正規化**
+   - 第3正規形までを基本とする
+   - パフォーマンス要件による非正規化は許容
+
+### インデックス設計
+1. **主キーインデックス**
+   - 全テーブルに必須
+   - 複合主キーの場合は順序考慮
+
+2. **外部キーインデックス**
+   - 参照整合性の確保
+   - 結合パフォーマンスの考慮
+
+3. **検索用インデックス**
+   - 頻繁な検索条件に対応
+   - カバリングインデックスの検討
+
+### データ運用・保守
+1. **バックアップ**
+   - 実施タイミング
+   - 保存期間
+   - 復旧手順
+   - 手順書の整備
+   - テスト実施計画
+
+2. **データ移行**
+   - 移行元データの調査
+   - マッピング定義
+   - 変換ルール
+   - データ整合性確認
+   - パフォーマンス測定
+
+## 品質チェック
+
+### 作成時チェック
+- [ ] ドメインモデルとの整合性
+- [ ] 命名規則の遵守
+- [ ] 適切なデータ型選択
+- [ ] インデックス設計の妥当性
+- [ ] 制約の適切な設定
+
+### レビューポイント
+- [ ] パフォーマンス要件の充足
+- [ ] セキュリティ考慮
+- [ ] 運用・保守性
+- [ ] 拡張性への配慮
+- [ ] データ整合性の確保
+
+## 作業手順
+
+### 1. インプット情報の収集
+- GitHubのissueの内容確認
+- [docs/design/source/domain_model.rst](mdc:docs/design/source/domain_model.rst) のドメインモデル確認
+- [docs/design/source/usecase/](mdc:docs/design/source/usecase) のユースケース記述参照
+- 既存のテーブル定義の確認
+- パフォーマンス要件の確認
+
+### 2. データベース要件の分析
+- **エンティティ分析**: ドメインモデルからエンティティを特定
+- **リレーション分析**: エンティティ間の関係性を整理
+- **データ特性**: データ量、更新頻度、アクセスパターンの分析
+- **制約条件**: ビジネスルール、整合性要件の整理
+
+### 3. ファイル作成
+- [docs/design/source/database/template.rst](mdc:docs/design/source/database/template.rst) をコピー
+- 適切なファイル名での保存
+- インデックスファイルの更新
+- ER図の作成・更新準備
+
+### 4. 記述作成
+- テーブル定義の作成
+- インデックス設計
+- 制約の定義
+- ER図の更新
+- チェックリストに基づく品質確認
+
+### 5. Git運用
+- コミットメッセージの作成（データベース設計: [概要説明]）
+- 変更内容の最終確認
+- プッシュとレビュー依頼
+
+## 関連ドキュメント
+- **ワークフロー**: [.cursor/rules/workflow.mdc](mdc:.cursor/rules/workflow.mdc)
+- **ユーザーストーリー**: [.cursor/rules/user_story.mdc](mdc:.cursor/rules/user_story.mdc)
+- **ユースケース**: [.cursor/rules/usecase.mdc](mdc:.cursor/rules/usecase.mdc)
+- **ドメインモデル**: [.cursor/rules/domain_model.mdc](mdc:.cursor/rules/domain_model.mdc)
+- **Git運用**: [.cursor/rules/git.mdc](mdc:.cursor/rules/git.mdc)

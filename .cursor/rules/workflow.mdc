@@ -1,0 +1,154 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# プロジェクト設計ワークフロー
+
+このプロジェクトにおける統一された設計手順とワークフローです。
+
+## 基本ワークフロー
+
+### 1. GitHubのissue確認
+- issue番号、タイトル、詳細内容の確認
+- 要求の背景と期待される結果の理解
+- 関連するissueや依存関係の把握
+
+### 2. ユーザーストーリー作成
+- [docs/design/source/user_story/template.rst](mdc:docs/design/source/user_story/template.rst) をコピーして作成
+- Agile形式（As a/I want/So that）でユーザーストーリーを記述
+- Given-When-Thenシナリオで受け入れ条件を定義
+- [docs/design/source/user_story/index.rst](mdc:docs/design/source/user_story/index.rst) の `toctree` に追加
+
+### 3. ドメインモデル作成
+- ユーザーストーリーから新しい用語・アクターを抽出
+- [docs/design/source/domain_model.rst](mdc:docs/design/source/domain_model.rst) に用語説明を追加
+- 必要に応じてMermaidクラス図を作成・更新
+- システム内の関係性を明確化
+
+### 4. ユースケース作成
+- ユースケース図の作成（Mermaid形式）
+- ユースケース記述の作成
+- アクターとシステムの相互作用を定義
+- [docs/design/source/usecase/index.rst](mdc:docs/design/source/usecase/index.rst) への索引追加
+
+### 5. 画面遷移図作成
+- ユースケースから画面遷移を設計
+- [docs/design/source/screen/diagram.rst](mdc:docs/design/source/screen/diagram.rst) をベースに作成
+- 画面名はドメインモデルと統一
+- [docs/design/source/screen/index.rst](mdc:docs/design/source/screen/index.rst) にリンクを追加
+
+### 6. データベース設計
+- ER図の作成・更新
+- テーブル設計書の作成
+- データ整合性とビジネスルールの定義
+- [docs/design/source/database/index.rst](mdc:docs/design/source/database/index.rst) に追加
+
+## ファイル構造
+
+```
+docs/design/source/
+├── user_story/          # ユーザーストーリー
+│   ├── index.rst       # 一覧
+│   ├── template.rst    # テンプレート
+│   └── *.rst          # 個別ストーリー
+├── domain_model.rst     # ドメインモデル・用語定義
+├── usecase/            # ユースケース
+│   ├── index.rst      # 一覧
+│   ├── diagram.rst    # 図
+│   ├── template.rst   # テンプレート
+│   └── *.rst         # 個別ユースケース
+├── screen/             # 画面設計
+│   ├── index.rst      # 一覧
+│   ├── diagram.rst    # 画面遷移図
+│   └── *.rst         # 個別画面定義
+└── database/           # データベース設計
+    ├── index.rst      # 一覧
+    ├── er.rst        # ER図
+    └── template.rst   # テンプレート
+```
+
+## Git運用
+
+### コミットタイミング
+1. ユーザーストーリー作成後
+2. ドメインモデル更新後
+3. ユースケース作成後
+4. 画面遷移図作成後
+5. データベース設計後
+
+### コミットメッセージ形式
+- ユーザーストーリー: `feat(user-story): [機能名] - [概要]`
+- ドメインモデル: `feat(domain): [用語追加/クラス図更新] - [概要]`
+- ユースケース: `feat(usecase): [機能名] - [概要]`
+- 画面設計: `feat(screen): [画面名] - [概要]`
+- データベース設計: `feat(db): [テーブル追加/ER図更新] - [概要]`
+
+## 品質チェック
+
+### 各ステップでのチェックポイント
+
+#### ユーザーストーリー
+- [ ] GitHubのissueと内容が一致している
+- [ ] Agile形式で記述されている
+- [ ] 受け入れ条件が具体的で測定可能
+- [ ] 3つのシナリオが記述されている
+
+#### ドメインモデル
+- [ ] 新しい用語がすべて定義されている
+- [ ] アクターが明確に識別されている
+- [ ] クラス図が論理的に整合している
+- [ ] 用語の一貫性が保たれている
+
+#### ユースケース
+- [ ] ユーザーストーリーと整合している
+- [ ] ドメインモデルの用語が使用されている
+- [ ] システムとアクターの相互作用が明確
+- [ ] Mermaid図が正しく表示される
+
+#### 画面遷移図
+- [ ] ユースケースと整合している
+- [ ] 画面名がドメインモデルと統一されている
+- [ ] エラー処理が考慮されている
+- [ ] 遷移条件が明確に記述されている
+
+#### データベース設計
+- [ ] ドメインモデルと整合している
+- [ ] ER図にすべてのエンティティが含まれている
+- [ ] データ整合性制約が適切に定義されている
+- [ ] インデックスと外部キーが適切に設定されている
+
+## 関連ルール
+
+- [ユーザーストーリー作成ルール](mdc:.cursor/rules/user_story.mdc)
+- [ドメインモデル作成ルール](mdc:.cursor/rules/domain_model.mdc)
+- [ユースケース作成ルール](mdc:.cursor/rules/usecase.mdc)
+- [画面遷移図作成ルール](mdc:.cursor/rules/screen.mdc)
+- [データベース設計ルール](mdc:.cursor/rules/database.mdc)
+- [DDD設計ルール](mdc:.cursor/rules/ddd.mdc)
+- [バッチ処理設計ルール](mdc:.cursor/rules/batch.mdc)
+- [メール定義書作成ルール](mdc:.cursor/rules/mail.mdc)
+- [Git運用ルール](mdc:.cursor/rules/git.mdc)
+- [Mermaid記法ルール](mdc:.cursor/rules/mermaid.mdc)
+
+## 設計原則
+
+### 1. 一貫性の維持
+- 用語の統一（ドメインモデルを基準）
+- 命名規則の統一
+- 図の表現方法の統一
+
+### 2. トレーサビリティの確保
+- issueからの追跡可能性
+- 設計ドキュメント間の相互参照
+- 変更履歴の明確化
+
+### 3. 段階的な詳細化
+- 上位設計から下位設計への展開
+- 各段階での整合性確認
+- 必要に応じた反復的な改善
+
+### 4. レビューと品質保証
+- 各段階でのレビュー実施
+- チェックリストによる確認
+- フィードバックの反映

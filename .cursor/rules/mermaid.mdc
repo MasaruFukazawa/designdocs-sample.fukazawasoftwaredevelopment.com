@@ -1,0 +1,188 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Mermaid記法ルール
+
+このプロジェクトでのMermaid記法の統一ルールとベストプラクティスです。
+
+## 基本ルール
+
+### 1. ファイル保存場所
+- Mermaid図は各設計ドキュメント内に直接記述
+- 設定ファイル: [docs/design/source/conf.py](mdc:docs/design/source/conf.py)
+
+### 2. テンプレートの使用
+- 基本記述形式：
+```rst
+.. mermaid::
+
+   [Mermaid図の種類]
+   [図の内容]
+```
+
+### 3. インデックスファイルへの追加
+- 各設計ドキュメントのインデックスファイルに図表一覧を追加
+- キャプションと参照リンクを適切に設定
+
+### 4. 用語・設計の統一
+- 図表内の用語は [docs/design/source/domain_model.rst](mdc:docs/design/source/domain_model.rst) に準拠
+- アクター名、エンティティ名は統一
+- 日本語・英語の使い分けを統一
+
+## 設計原則
+
+### 図表タイプ別ルール
+
+#### 1. シーケンス図（sequenceDiagram）
+```rst
+.. mermaid::
+
+   sequenceDiagram
+      participant Client as 主アクター名
+      participant WebApp as Webアプリケーション
+      participant Service as 処理制御名
+      participant DB as エンティティ名
+
+      Client->>WebApp: 操作実行
+      WebApp->>Service: 処理要求
+      Service->>DB: データ検証
+      DB-->>Service: 検証結果
+```
+
+**矢印の使い分け**:
+- **`->>`**: 同期呼び出し（レスポンスを待つ）
+- **`-->>`**: 非同期レスポンス（戻り値）
+- **`->>`**: 通知・イベント（レスポンス不要）
+
+#### 2. フローチャート（graph）
+```rst
+.. mermaid::
+
+   graph TD
+      Start([開始])
+      Process[処理]
+      Decision{判定}
+      End([終了])
+      
+      Start --> Process
+      Process --> Decision
+      Decision -->|Yes| End
+      Decision -->|No| Process
+```
+
+**ノードの形状**:
+- **`[テキスト]`**: 通常処理（矩形）
+- **`([テキスト])`**: 開始・終了（楕円）
+- **`{テキスト}`**: 判定・分岐（菱形）
+- **`((テキスト))`**: データベース（円形）
+
+#### 3. ER図（erDiagram）
+```rst
+.. mermaid::
+
+   erDiagram
+      USER ||--o{ ORDER : "has"
+      ORDER ||--|{ ORDER_ITEM : "contains"
+      PRODUCT ||--o{ ORDER_ITEM : "referenced by"
+```
+
+**リレーション記法**:
+- **`||`**: 必須・1つ
+- **`|o`**: オプション・0または1
+- **`}|`**: 必須・1つ以上
+- **`}o`**: オプション・0以上
+- **`--`**: 識別関係（実線）
+- **`..`**: 非識別関係（点線）
+
+#### 4. クラス図（classDiagram）
+```rst
+.. mermaid::
+
+   classDiagram
+      class User {
+          +user_id: int
+          +name: string
+          +created_at: datetime
+          --
+          +login()
+          +logout()
+      }
+```
+
+### 制限事項と回避策
+
+#### 1. 予約語・特殊文字
+- **Actor**: 予約語のため使用不可（`Client`や`User`を使用）
+- **角括弧`[]`**: プレースホルダーとして使用不可
+- **ハイフン`-`**: 識別子内で使用不可
+- **ドット`.`**: 属性名で使用不可
+- **クエスチョン`?`**: 属性名で使用不可
+
+#### 2. 日本語使用
+- **エイリアス**: `participant Client as クライアント` ✅
+- **ラベル**: `Client->>Server: データ送信` ✅
+- **参加者名**: `participant クライアント` ❌
+- **変数名**: `クライアント->>サーバー` ❌
+
+#### 3. 複雑度制限
+- 参加者数は5個以下に制限
+- 矢印の数は10本以下に制限
+- 複雑な図は分割して表現
+
+## 品質チェック
+
+### 作成時チェックポイント
+- [ ] 予約語を使用していない
+- [ ] 日本語は適切な場所のみ使用
+- [ ] インデントが正しい
+- [ ] 参加者数・矢印数が適切
+- [ ] キャプションが設定されている
+
+### レビューポイント
+- [ ] Sphinxビルドでエラーなし
+- [ ] 図表が正しく表示される
+- [ ] 日本語が文字化けしていない
+- [ ] ズーム機能が動作する
+- [ ] 図表の意図が明確に伝わる
+- [ ] 複雑すぎない（分割の必要性）
+- [ ] ドメインモデルとの用語整合性
+
+## 作業手順
+
+### 1. インプット情報の収集
+- GitHubのissueの内容確認
+- 関連する設計ドキュメントの確認
+- [docs/design/source/domain_model.rst](mdc:docs/design/source/domain_model.rst) での用語確認
+- 既存の類似図表の参照
+
+### 2. 図表の分析
+- **目的**: 図表で表現したい内容の明確化
+- **種類**: 最適な図表タイプの選択
+- **範囲**: 表現する範囲の決定
+- **分割**: 必要に応じて複数図表への分割検討
+
+### 3. ファイル作成
+- 適切な設計ドキュメント内に図表を配置
+- テンプレートに基づく基本構造の作成
+- キャプションと参照の設定
+
+### 4. 記述作成
+- Mermaid記法に基づく図表の作成
+- 制限事項に注意した実装
+- チェックリストに基づく品質確認
+- Sphinxビルドでの動作確認
+
+### 5. Git運用
+- コミットメッセージの作成（feat(mermaid): [図表種類] - [概要]）
+- 変更内容の最終確認
+- プッシュとレビュー依頼
+
+## 関連ドキュメント
+- **ワークフロー**: [.cursor/rules/workflow.mdc](mdc:.cursor/rules/workflow.mdc)
+- **ユーザーストーリー**: [.cursor/rules/user_story.mdc](mdc:.cursor/rules/user_story.mdc)
+- **ユースケース**: [.cursor/rules/usecase.mdc](mdc:.cursor/rules/usecase.mdc)
+- **ドメインモデル**: [.cursor/rules/domain_model.mdc](mdc:.cursor/rules/domain_model.mdc)
+- **データベース設計**: [.cursor/rules/database.mdc](mdc:.cursor/rules/database.mdc)
+- **Git運用**: [.cursor/rules/git.mdc](mdc:.cursor/rules/git.mdc)

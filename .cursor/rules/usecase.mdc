@@ -1,0 +1,229 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# ユースケース図・記述作成ルール
+
+このプロジェクトでユースケース図と記述を作成する際の標準ルールです。
+
+## 基本ルール
+
+### 1. ファイル保存場所
+- **ユースケース図**: [docs/design/source/usecase/diagram.rst](mdc:docs/design/source/usecase/diagram.rst) をメイン図として使用
+- **個別ユースケース記述**: [docs/design/source/usecase/](mdc:docs/design/source/usecase) ディレクトリに個別ファイル
+- **索引**: [docs/design/source/usecase/index.rst](mdc:docs/design/source/usecase/index.rst) に新ファイルのリンクを追加
+
+### 2. テンプレート使用
+- **ユースケース図**: [docs/design/source/usecase/diagram.rst](mdc:docs/design/source/usecase/diagram.rst) をベースに作成
+- **ユースケース記述**: [docs/design/source/usecase/template.rst](mdc:docs/design/source/usecase/template.rst) をコピーして使用
+
+### 3. 用語・アクター統一
+- 新しい用語・アクターは [docs/design/source/domain_model.rst](mdc:docs/design/source/domain_model.rst) に定義を記述
+- ユースケースで使用するアクター名・用語は必ずdomain_modelに登録されているものを使用
+
+## ユースケース図作成
+
+### 1. Mermaid記法のポイント
+```mermaid
+%%{init: {"theme": "default"}}%%
+graph TD
+    Actor["🔸<br/>アクター名"]
+    UseCase1["ユースケース1"]
+    UseCase2["ユースケース2"]
+    
+    Actor --> UseCase1
+    Actor --> UseCase2
+```
+
+### 2. アクターアイコン
+- 👤 一般ユーザー（顧客、利用者）
+- 👥 管理者、運営者
+- 🖥️ システム、外部システム
+- 🔸 その他のアクター
+
+### 3. 推奨記法
+- **シンプルな矢印**: `Actor --> UseCase`
+- **アクター定義**: `ActorName[表示名]`
+- **ユースケース定義**: `UseCaseName[ユースケース名]`
+
+### 4. 避けるべき記法
+- **点線矢印**: `-.->` （Sphinx環境でエラー可能性）
+- **複雑なリレーション**: `||--||`, `||--o{` など
+- **日本語ラベル付きリレーション**: `: "日本語"`
+- **絵文字**: 環境依存の可能性あり
+
+## ユースケース記述作成
+
+### 1. 必須セクション
+
+```rst
+[ ユースケース名 ]
+==========================================
+
+関連ユーザーストーリー
+--------------------------------------------
+* :doc:`../user_story/[ファイル名]`
+
+アクター
+--------------------------------------------
+**主アクター**: [ メインのアクター名 ]
+**副アクター**: [ サポートするアクター名 ]
+
+事前条件
+--------------------------------------------
+- [ 条件1 ]
+- [ 条件2 ]
+
+事後条件
+--------------------------------------------
+**成功時**:
+- [ 成功時の状態 ]
+
+**失敗時**:
+- [ 失敗時の状態 ]
+
+基本コース
+--------------------------------------------
+1. [ アクター ] が [ アクション ]
+2. システムが [ 処理 ]
+...
+
+代替コース
+--------------------------------------------
+**[ ステップ番号 ]a. [ 例外状況 ]**:
+[ ステップ番号 ]a1. [ 例外処理 ]
+...
+
+シーケンス図
+--------------------------------------------
+.. mermaid::
+   [ シーケンス図 ]
+```
+
+### 2. シーケンス図のテンプレート
+
+```mermaid
+%%{init: {"theme": "default"}}%%
+sequenceDiagram
+    participant Actor as アクター
+    participant System as システム
+    participant Database as データベース
+    
+    Actor->>System: アクション
+    System->>Database: データ操作
+    Database-->>System: 結果返却
+    System-->>Actor: 結果表示
+```
+
+## 作成手順
+
+### 1. インプット情報の収集
+- GitHubのissueの内容確認
+- [docs/design/source/user_story/](mdc:docs/design/source/user_story) のユーザーストーリー参照
+- [docs/design/source/domain_model.rst](mdc:docs/design/source/domain_model.rst) でアクターと用語確認
+
+### 2. ユースケースの分析
+- **主アクター**: ユーザーストーリーの「As a」から特定
+- **目的**: ユーザーストーリーの「So that」から特定
+- **具体的な行動**: ユーザーストーリーの「I want」から特定
+- **シナリオ**: Given-When-Then形式の受け入れ条件を参照
+
+### 3. ファイル作成
+- テンプレートをコピーして新規ファイル作成
+- ファイル名は `[ 機能名 ]_[ 動作 ].rst` 形式
+
+### 4. 記述作成
+- 関連ユーザーストーリーへのリンク設定
+- 各セクションを具体的に記述
+- ユーザーストーリーの受け入れ条件を基本コースに反映
+- ドメインモデルとの整合性確認
+
+## Git運用
+
+### コミットタイミング
+- 新規ユースケース作成時
+- 既存ユースケースの重要な更新時
+- インデックスファイル更新時
+
+### コミットメッセージ形式
+```
+feat(usecase): [機能名] - [概要]
+```
+
+例：
+- `feat(usecase): add shopping cart usecase`
+- `feat(usecase): update login sequence diagram`
+
+## 品質チェックリスト
+
+### 作成時チェック
+- [ ] GitHubのissueと内容が一致している
+- [ ] ユーザーストーリーと整合している
+- [ ] ドメインモデルの用語と一貫性がある
+- [ ] 基本コースと代替コースが明確
+- [ ] シーケンス図が正しく表示される
+- [ ] インデックスにファイルリンクが追加されている
+
+### レビューポイント
+- [ ] アクターと目的が明確
+- [ ] 事前・事後条件が具体的
+- [ ] 基本コースが実装可能
+- [ ] 代替コースが網羅的
+- [ ] シーケンス図が分かりやすい
+
+## インデックスファイル運用
+
+### 基本構成
+```rst
+ユースケース 一覧
+============================================
+
+.. toctree::
+   :maxdepth: 1
+
+   [ユースケースファイル名]
+   diagram
+   template
+```
+
+### 追加手順
+1. 新ファイルを作成
+2. `toctree` に追加（拡張子なし）
+3. 重要度順に並べ替え
+4. `diagram` と `template` は最後に維持
+
+## 関連ルール
+
+- [ドメインモデル作成ルール](mdc:.cursor/rules/domain_model.mdc)
+- [ユーザーストーリー作成ルール](mdc:.cursor/rules/user_story.mdc)
+- [プロジェクト設計ワークフロー](mdc:.cursor/rules/workflow.mdc)
+- [画面遷移図作成ルール](mdc:.cursor/rules/screen.mdc)
+- [データベース設計ルール](mdc:.cursor/rules/database.mdc)
+- [DDD設計ルール](mdc:.cursor/rules/ddd.mdc)
+- [バッチ処理設計ルール](mdc:.cursor/rules/batch.mdc)
+- [メール定義書作成ルール](mdc:.cursor/rules/mail.mdc)
+- [Git運用ルール](mdc:.cursor/rules/git.mdc)
+- [Mermaid記法ルール](mdc:.cursor/rules/mermaid.mdc)
+
+## 設計原則
+
+### 1. 明確性と具体性
+- アクターと目的を明確に
+- 具体的な操作と結果を記述
+- 実装可能なレベルの詳細度
+
+### 2. 一貫性の維持
+- ドメインモデルとの用語統一
+- テンプレート構造の遵守
+- 命名規則の統一
+
+### 3. トレーサビリティ
+- GitHubのissueとの紐付け
+- ユーザーストーリーとの関連付け
+- 変更履歴の管理
+
+### 4. 保守性
+- モジュール化された構造
+- 変更容易な記述方式
+- 明確な依存関係
