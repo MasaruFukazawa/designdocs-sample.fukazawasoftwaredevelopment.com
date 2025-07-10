@@ -11,12 +11,10 @@ alwaysApply: true
 
 ### 1. ファイル保存場所
 - **画面遷移図**: [docs/design/source/screen/diagram.rst](mdc:docs/design/source/screen/diagram.rst) をメイン図として使用
-- **個別画面設計**: [docs/design/source/screen/](mdc:docs/design/source/screen) ディレクトリに個別ファイル
 - **索引**: [docs/design/source/screen/index.rst](mdc:docs/design/source/screen/index.rst) に新ファイルのリンクを追加
 
 ### 2. テンプレート使用
 - **画面遷移図**: [docs/design/source/screen/diagram.rst](mdc:docs/design/source/screen/diagram.rst) をベースに作成
-- **個別画面設計**: 必要に応じて個別ファイルを作成
 - **機能別画面遷移**: [docs/design/source/screen/diagram.rst](mdc:docs/design/source/screen/diagram.rst) の機能別画面遷移テンプレートを使用してdiagram.rstに直接追加
 
 ### 3. 機能別画面遷移テンプレートの使用
